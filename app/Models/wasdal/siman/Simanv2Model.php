@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Simanv2Model extends Model
 {
     use HasFactory;
-     protected $table = 'VW_SIMAN_V2_ALL';
+     protected $table = 'SIMAN_V2_ALL';
 
 }

@@ -31,7 +31,7 @@
                                         </div>
                                     </div>
                                     <div class="add-btn">
-                                        <a href="{{route('form-psp.create')}}"><button class="btn btn-primary btn-sm">Wasdal</button></a>
+                                        <a href="{{route('form-psp.index')}}"><button class="btn btn-primary btn-sm">Wasdal</button></a>
                                     </div>
                                 </div>
                             </div>

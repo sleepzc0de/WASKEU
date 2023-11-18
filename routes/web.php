@@ -39,6 +39,10 @@ Route::middleware('auth')->group(function () {
 
  Route::prefix('pemantauan-periodik-penggunaan')->group(function () {
      Route::resource('form-psp', FormPSPController::class);
+     Route::post('kode-barang/{id}', [FormPSPController::class, 'getKodeBarang'])->name('getKodeBarang');
+     Route::post('nup-barang/{id1}/{id2}', [FormPSPController::class, 'getNupBarang'])->name('getNupBarang');
+     Route::post('nilai-buku/{id1}/{id2}/{id3}', [FormPSPController::class, 'getNilaiBukuBarang'])->name('getNilaiBukuBarang');
+
 });
 
 require __DIR__.'/auth.php';

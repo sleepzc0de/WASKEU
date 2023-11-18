@@ -26,11 +26,20 @@ return new class extends Migration
             $table->string('nama_barang')->nullable()->default('KOSONG');
             $table->string('kode_barang')->nullable()->default('KOSONG');
             $table->string('nup')->nullable()->default('KOSONG');
-            $table->float('nilai_buku')->nullable()->default('KOSONG');
+            $table->float('nilai_buku')->nullable()->default('0');
             $table->string('status_psp')->nullable()->default('KOSONG');
             $table->string('no_psp')->nullable()->default('KOSONG');
             $table->date('tgl_psp')->nullable();
             $table->text('ket_psp')->nullable()->default('KOSONG');
+            $table->string('status_sesuai_Form1')->nullable()->default('KOSONG');
+            $table->boolean('isCompletedForm1')->nullable()->default(false);
+            $table->boolean('isCompletedForm2')->nullable()->default(false);
+            $table->boolean('isCompletedForm3')->nullable()->default(false);
+            $table->boolean('isCompletedForm4')->nullable()->default(false);
+            $table->boolean('isCompletedForm5')->nullable()->default(false);
+            $table->boolean('isCompletedForm6')->nullable()->default(false);
+            $table->boolean('isCompletedForm7')->nullable()->default(false);
+            $table->boolean('isCompletedForm8')->nullable()->default(false);
             $table->timestamps();
         });
     }
