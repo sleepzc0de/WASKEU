@@ -18,63 +18,41 @@ class FormPSPController extends Controller
      * Display a listing of the resource.
      */
 
-     public function index()
+    public function index()
     {
 
 
-        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker','330171')->select('*');
+        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', '330171')->select('*');
 
         if (request()->ajax()) {
-            $dataTable = datatables()->of($query)
+            // $dataTable = datatables()->of($query)
+             return datatables()->of($query)
                 ->addColumn('opsi', function ($query) {
                     // $preview = route('form-psp.show', $query->id);
                     $edit = route('form-psp.edit', $query->id);
-                    // $hapus = route('form-psp.destroy', $query->id);
-                    return ' <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                    $hapus = route('form-psp.destroy', $query->id);
+                    return '
+                    <div style="display: flex; justify-content: space-between;">
+
+                    <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                    <form action="' . $hapus . '" method="POST">
+													' . @csrf_field() . '
+													' . @method_field('DELETE') . '
+													<button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+													</form>
+                                                    </div>
                 ';
                 })
-
-                ->editColumn('isCompletedForm1', function ($query) {
-                    $x = '';
-                    if ($query->isCompletedForm1) {
-                        $x = '<span class="mdi mdi-check-circle"></span>';
-                    }
-                    if (!$query->isCompletedForm1) {
-                        $x = '<span class="mdi mdi-alert"></span>';
-                    }
-
-                    return $x;
-                })
-
-
-
                 ->rawColumns(
-                    ['opsi',
-                    'isCompletedForm1'
-                      ])
-                ->addIndexColumn();
-
-                 $filterableColumns = [
-                    'kd_brg',
-                    'nm_jns_bmn',
-                    'no_aset',
-                    'rph_buku',
-                    'tanggal_psp',
-                    'status_psp',
-                    'nomor_psp',
-                    'status_sesuai_Form1'
-    ];
-
-                foreach ($filterableColumns as $column) {
-        $dataTable->filterColumn($column, function ($query, $keyword) use ($column) {
-            $query->whereRaw("$column LIKE ?", ["%{$keyword}%"]);
-        });
-    }
-                    return $dataTable->make(true);
-
+                    [
+                        'opsi'
+                    ]
+                )
+                ->addIndexColumn()
+                ->make(true);
         }
-        $data = PenggunaanModel::where('kode_satker','330171')->get();
-        return view('konten-wasdal.pemantauan.formulir.psp.index',compact('data'));
+        $data = PenggunaanModel::where('kode_satker', '330171')->get();
+        return view('konten-wasdal.pemantauan.formulir.psp.index', compact('data'));
     }
 
     /**
@@ -85,10 +63,10 @@ class FormPSPController extends Controller
         $status_psp = ref_status_psp::all();
         $refKodeBarang = ref_kode_barang_simanold::all();
         $refJenisBarang = ref_jenis_barang_simannew::all();
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker','330171')->get();
+        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', '330171')->get();
 
 
-        return view('konten-wasdal.pemantauan.formulir.psp.create',compact(['data','status_psp','refKodeBarang','refJenisBarang']));
+        return view('konten-wasdal.pemantauan.formulir.psp.create', compact(['data', 'status_psp', 'refKodeBarang', 'refJenisBarang']));
     }
 
 
@@ -97,7 +75,7 @@ class FormPSPController extends Controller
      */
     public function store(Request $request)
     {
-         try {
+        try {
             //code...
             $request->validate([
                 // 'tanggal_psp' => 'date|date_format:Y-m-d',
@@ -106,11 +84,11 @@ class FormPSPController extends Controller
             $status_sesuai_Form1 = ($request->status_psp === '1') ? 'SESUAI' : 'TIDAK SESUAI';
 
             $user =  PenggunaanModel::create([
-                'ue1'=> 'DIREKTORAT JENDERAL PERBENDAHARAAN',
+                'ue1' => 'DIREKTORAT JENDERAL PERBENDAHARAAN',
                 'nama_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
-                'kode_satker'=>'330171',
+                'kode_satker' => '330171',
                 'nama_anak_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
-                'kode_anak_satker'=>'015083300330171000KD',
+                'kode_anak_satker' => '015083300330171000KD',
                 'jenis_barang' => $request->jenis_barang,
                 'kode_barang' => $request->kode_barang,
                 'status_psp' => $request->status_psp,
@@ -145,12 +123,10 @@ class FormPSPController extends Controller
 
         $status_psp = ref_status_psp::all();
 
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker','330171')->findOrFail($id);
+        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', '330171')->findOrFail($id);
         // dd($status_psp);
 
-         return view('konten-wasdal.pemantauan.formulir.psp.edit',compact(['data','status_psp']));
-
-
+        return view('konten-wasdal.pemantauan.formulir.psp.edit', compact(['data', 'status_psp']));
     }
 
     /**
@@ -158,11 +134,9 @@ class FormPSPController extends Controller
      */
     public function update(Request $request, string $id)
     {
-           try {
+        try {
             // VALIDASI DATA
-            $request->validate([
-
-            ]);
+            $request->validate([]);
 
             $status_sesuai_Form1 = ($request->status_psp === '1') ? 'SESUAI' : 'TIDAK SESUAI';
 
@@ -188,15 +162,13 @@ class FormPSPController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(string $id)
-    // {
-    //       try {
-
-    //          PenggunaanModel::rightJoin('SIMAN_V2_ALL', 't_pemantauan_penggunaan.kode_satker', '=', 'SIMAN_V2_ALL.kd_satker')->where('kd_satker','015050900035519000KD')->where('id_aset',$id)->first()->delete();
-    //         return redirect()->route('form-psp.index')->with('success', "Data berhasil dihapus!");
-    //     } catch (Exception $e) {
-    //         return redirect()->route('form-psp.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
-    //     }
-    // }
-
+    public function destroy(string $id)
+    {
+        try {
+            PenggunaanModel::findOrFail($id)->delete();
+            return redirect()->route('form-psp.index')->with('success', "Data berhasil dihapus!");
+        } catch (Exception $e) {
+            return redirect()->route('form-psp.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
+        }
+    }
 }

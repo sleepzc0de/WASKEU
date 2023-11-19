@@ -75,7 +75,7 @@ $(function () {
                 { data: "nama_barang", name: "nama_barang" },
                 { data: "nup", name: "nup" },
                 { data: "nilai_buku", name: "nilai_buku" },
-                { data: "ref_status_psp.ur_status_psp", name: "ref_status_psp.ur_status_psp" },
+                // { data: "ref_status_psp.ur_status_psp", name: "ref_status_psp.ur_status_psp" },
                 { data: "nomor_psp", name: "nomor_psp" },
                 { data: "tanggal_psp", name: "tanggal_psp" },
                 { data: "ket_psp", name: "ket_psp" },
@@ -338,12 +338,13 @@ $(function () {
                         <th>NAMA BARANG</th>
                         <th>NUP</th>
                         <th>NILAI BUKU</th>
-                        <th>STATUS PSP</th>
+                        {{-- <th>STATUS PSP</th> --}}
                         <th>NOMOR PSP</th>
                         <th>TANGGAL PSP</th>
                         <th>KETERANGAN PSP</th>
                         <th>STATUS SESUAI</th>
-                        <th>AKSI</th>
+                        <th style="text-align: center;">AKSI</th>
+
                     </tr>
                 </thead>
             </table>
