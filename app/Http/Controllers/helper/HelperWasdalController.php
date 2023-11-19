@@ -4,6 +4,7 @@ namespace App\Http\Controllers\helper;
 
 use App\Http\Controllers\Controller;
 use App\Models\wasdal\pemantauan\PenggunaanModel;
+use App\Models\wasdal\referensi\ref_kode_barang_simanold;
 use App\Models\wasdal\siman\Simanv2Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -88,6 +89,11 @@ class HelperWasdalController extends Controller
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Gagal melakukan proses generate: ' . $e->getMessage());
         }
+    }
+
+    public function getKodeBarangAll() {
+        $kodeBarang = ref_kode_barang_simanold::all();
+        return response()->json($kodeBarang);
     }
 
 }

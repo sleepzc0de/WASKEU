@@ -65,14 +65,9 @@ $(function () {
                     orderable: false,
                     searchable: false,
                 },
-                { data: "nm_jns_bmn", name: "nm_jns_bmn" },
-                { data: "kd_brg", name: "kd_brg" },
-                { data: "no_aset", name: "no_aset" },
-                { data: "rph_buku", name: "rph_buku" },
-                { data: "tgl_psp", name: "tgl_psp" },
-                { data: "status_psp", name: "status_psp" },
-                { data: "no_psp", name: "no_psp" },
-                { data: "status_sesuai_Form1", name: "status_sesuai_Form1" },
+                { data: "nama_barang", name: "nama_barang" },
+                 { data: "nup", name: "nup" },
+                  { data: "nilai_buku", name: "nilai_buku" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -225,7 +220,8 @@ $(function () {
 
     <div class="card-datatable table-responsive pt-0">
         <div class="pt-3 px-5">
-            <a href="{{ route('form-psp.create') }}" class="btn btn-label-primary btn-fab demo">
+             @include('layouts.wasdal.session_notif')
+            <a href="{{ route('form-kesesuaian-psp.create') }}" class="btn btn-label-primary btn-fab demo">
                 <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
             </a>
 
@@ -235,14 +231,9 @@ $(function () {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>JENIS BMN</th>
-                    <th>KODE BARANG</th>
+                    <th>NAMA BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
-                    <th>TANGGAL PSP</th>
-                    <th>STATUS PSP</th>
-                    <th>NOMOR PSP</th>
-                    <th>STATUS SESUAI</th>
                     <th>AKSI</th>
                 </tr>
             </thead>

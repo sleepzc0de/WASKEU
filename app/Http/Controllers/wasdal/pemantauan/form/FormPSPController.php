@@ -91,6 +91,8 @@ class FormPSPController extends Controller
                 'kode_anak_satker' => '015083300330171000KD',
                 'jenis_barang' => $request->jenis_barang,
                 'kode_barang' => $request->kode_barang,
+                'nup' => $request->nup,
+                'nilai_buku' => $request->nilai_buku,
                 'status_psp' => $request->status_psp,
                 'no_psp' => $request->no_psp,
                 'tanggal_psp' => $request->tanggal_psp,

@@ -47,6 +47,12 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// REFERENSI
+
+Route::prefix('wasdal-referensi')->group(function () {
+Route::post('kode-barang-all', [HelperWasdalController::class, 'getKodeBarangAll'])->name('getKodeBarangAll');
+
+});
  Route::post('kode-barang/{id}', [HelperWasdalController::class, 'getKodeBarang'])->name('getKodeBarang');
      Route::post('nup-barang/{id1}/{id2}', [HelperWasdalController::class, 'getNupBarang'])->name('getNupBarang');
      Route::post('nilai-buku/{id1}/{id2}/{id3}', [HelperWasdalController::class, 'getNilaiBukuBarang'])->name('getNilaiBukuBarang');
