@@ -65,8 +65,21 @@ $(function () {
                     orderable: false,
                     searchable: false,
                 },
-
+                 { data: "ue1", name: "ue1" },
+                { data: "nama_satker", name: "nama_satker" },
+                { data: "kode_satker", name: "kode_satker" },
+                { data: "kode_anak_satker", name: "kode_anak_satker" },
+                { data: "nama_anak_satker", name: "nama_anak_satker" },
+                { data: "jenis_barang", name: "jenis_barang" },
+                { data: "kode_barang", name: "kode_barang" },
+                { data: "nama_barang", name: "nama_barang" },
+                { data: "nup", name: "nup" },
                 { data: "nilai_buku", name: "nilai_buku" },
+                { data: "ref_status_psp.ur_status_psp", name: "ref_status_psp.ur_status_psp" },
+                { data: "nomor_psp", name: "nomor_psp" },
+                { data: "tanggal_psp", name: "tanggal_psp" },
+                { data: "ket_psp", name: "ket_psp" },
+                { data: "status_sesuai_Form1", name: "status_sesuai_Form1" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -315,7 +328,21 @@ $(function () {
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>UE 1</th>
+                        <th>NAMA SATKER</th>
+                        <th>KODE SATKER</th>
+                        <th>KODE ANAK SATKER</th>
+                        <th>NAMA ANAK SATKER</th>
+                        <th>JENIS BARANG</th>
+                        <th>KODE BARANG</th>
+                        <th>NAMA BARANG</th>
+                        <th>NUP</th>
                         <th>NILAI BUKU</th>
+                        <th>STATUS PSP</th>
+                        <th>NOMOR PSP</th>
+                        <th>TANGGAL PSP</th>
+                        <th>KETERANGAN PSP</th>
+                        <th>STATUS SESUAI</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>

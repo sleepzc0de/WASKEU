@@ -76,7 +76,9 @@ class HelperWasdalController extends Controller
                     'nama_barang' => $data->ur_sskel,
                     'kode_barang' => $data->kd_brg,
                     'nup' => $data->no_aset,
-                    'nilai_buku'=>$data->rph_buku
+                    'nilai_buku'=>$data->rph_buku,
+                     'tanggal_psp'=>$data->tgl_psp,
+                      'nomor_psp'=>$data->no_psp
                 ];
 
                 PenggunaanModel::create($newData);
