@@ -128,34 +128,44 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-    // Menyimpan referensi ke elemen dropdown dan field lainnya
-    var statusDropdown = document.getElementById("status_psp");
-    var noPSPField = document.getElementById("nomor_psp");
-    var tglPSPField = document.getElementById("tanggal_psp");
-    var ketPSPField = document.getElementById("ket_psp");
+        var kesesuaianPSP = document.getElementById("kesesuaian_psp");
+        var digunakanSebagai = document.getElementById("digunakan_sebagai").parentElement.parentElement;
+        var rencanaAlihFungsi = document.getElementById("rencana_alih_fungsi").parentElement.parentElement;
 
-    // Mendengarkan perubahan pada dropdown
-    statusDropdown.addEventListener("change", function() {
-      // Jika opsi "Belum PSP" dipilih, nonaktifkan field lainnya
-      if (statusDropdown.value === "BELUM_PSP") {
-        noPSPField.disabled = true;
-        tglPSPField.disabled = true;
-        ketPSPField.disabled = true;
-      } else {
-        // Jika opsi lain dipilih, aktifkan kembali field lainnya
-        noPSPField.disabled = false;
-        tglPSPField.disabled = false;
-        ketPSPField.disabled = false;
-      }
+        // Fungsi untuk menampilkan atau menyembunyikan formulir berdasarkan nilai yang dipilih
+        function toggleFormVisibility() {
+            if (kesesuaianPSP.value === "TIDAK_SESUAI_PSP") {
+                digunakanSebagai.style = "block";
+                rencanaAlihFungsi.style = "block";
+            } else {
+                digunakanSebagai.style.display = "none";
+                rencanaAlihFungsi.style.display = "none";
+            }
+        }
+
+        // Fungsi untuk mengatur kembali keadaan default formulir saat tombol reset ditekan
+        function resetForm() {
+            digunakanSebagai.style.display = "none";
+            rencanaAlihFungsi.style.display = "none";
+        }
+
+        // Panggil fungsi saat halaman dimuat dan saat nilai dipilih di opsi "Kesesuaian PSP"
+        toggleFormVisibility();
+        kesesuaianPSP.addEventListener("change", toggleFormVisibility);
+
+        // Panggil fungsi saat tombol reset ditekan
+        var resetButton = document.querySelector("button[type='reset']");
+        resetButton.addEventListener("click", resetForm);
     });
-  });
 </script>
 
-<script src="{{asset('')}}assets/vendor/libs/cleavejs/cleave.js"></script>
-<script src="{{asset('')}}assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-<script src="{{asset('')}}assets/vendor/libs/moment/moment.js"></script>
-<script src="{{asset('')}}assets/vendor/libs/flatpickr/flatpickr.js"></script>
-{{-- <script src="{{asset('')}}assets/vendor/libs/select2/select2.js"></script> --}}
+
+
+
+<script src="{{asset('assets/vendor/libs/cleavejs/cleave.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/cleavejs/cleave-phone.js')}}"></>
+<script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
 <script src="{{asset('assets/js/form-layouts.js')}}"></script>
 @endsection
 
@@ -163,31 +173,10 @@
 @section('content')
 
 <!-- Collapsible Section -->
-{{-- <div class="row my-4">
-    <div class="col">
-        <h6>Collapsible Section</h6>
-        <div class="accordion" id="collapsibleSection">
-            <!-- Payment Method -->
-            <div class="card accordion-item">
-                <h2 class="accordion-header" id="headingPaymentMethod">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapsePaymentMethod" aria-expanded="true"
-                        aria-controls="collapsePaymentMethod">
-                        Payment Method
-                    </button>
-                </h2>
-                <div id="collapsePaymentMethod" class="accordion-collapse collapse"
-                    aria-labelledby="headingPaymentMethod" data-bs-parent="#collapsibleSection">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 <div class="col-xxl">
     <div class="card mb-4">
         <div class="card-body">
-           <form action="{{route('form-psp.store')}}" method="post" autocomplete="off">
+           <form action="{{route('form-kesesuaian-psp.store')}}" method="post" autocomplete="off">
                 @csrf
                 <div class="accordion-body">
                     <div class="mb-3">
@@ -221,7 +210,7 @@
 
                             @foreach ($data['siman'] as $item)
                             <option value="{{ $item->kd_jns_bmn }}" {{ old('siman')==$item->kd_jns_bmn ? 'selected' :
-                                null}}>{{$item->kd_jns_bmn." - ".$item->nm_jns_bmn}}</option>
+                                null}}>{{$loop->iteration." - ".$item->nm_jns_bmn}}</option>
                             @endforeach
 
 
@@ -257,35 +246,40 @@
                             class="form-control" id="nilai_buku" readonly />
                     </div>
                 </div>
+
+
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="status_psp">Status PSP</label>
+                    <label class="col-sm-2 col-form-label" for="kesesuaian_psp">Kesesuaian PSP</label>
                     <div class="col-sm-10">
-                        <select name="status_psp" class="form-select" id="status_psp" aria-label="Status PSP">
-                            <option selected value="KOSONG">Pilih Status PSP</option>
-                            <option value="SUDAH_PSP">Sudah PSP</option>
-                            <option value="BELUM_PSP">Belum PSP</option>
+                        <select name="kesesuaian_psp" class="form-select" id="kesesuaian_psp" aria-label="Kesesuaian PSP">
+                            <option selected value="KOSONG">Pilih Kesesuaian PSP</option>
+                            <option value="SESUAI_PSP">Sesuai PSP</option>
+                            <option value="TIDAK_SESUAI_PSP">Tidak Sesuai PSP</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="nomor_psp">Nomor PSP</label>
+                    <label class="col-sm-2 col-form-label" for="digunakan_sebagai">Digunakan Sebagai</label>
                     <div class="col-sm-10">
-                        <input name="nomor_psp" type="text" class="form-control" id="nomor_psp" placeholder="Nomor PSP" />
+                        <input value="{{ old('digunakan_sebagai') }}" name="digunakan_sebagai" type="text"
+                            class="form-control" id="digunakan_sebagai" />
                     </div>
                 </div>
+
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="tanggal_psp">Tanggal PSP</label>
+                    <label class="col-sm-2 col-form-label" for="rencana_alih_fungsi">Rencana Alih Fungsi Menjadi</label>
                     <div class="col-sm-10">
-                        <input name="tanggal_psp" id="tanggal_psp" class="form-control" type="date" id="html5-date-input" />
+                        <select name="rencana_alih_fungsi" class="select2 form-select form-select-lg" data-allow-clear="true" id="rencana_alih_fungsi" aria-label="Rencana Alih Fungsi">
+                            <option selected value="KOSONG">Pilih Referensi Barang</option>
+                            @foreach ($data['refBarang'] as $item)
+                            <option value="{{ $item->kd_brg }}" {{ old('siman')==$item->kd_brg ? 'selected' :
+                                null}}>{{$item->kd_brg." - ".$item->ur_sskel}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="ket_psp">Keterangan PSP</label>
-                    <div class="col-sm-10">
-                        <textarea name="ket_psp" class="form-control h-px-100" id="ket_psp"
-                            placeholder="Keterangan PSP"></textarea>
-                    </div>
-                </div>
+
                         </div>
                     </div>
                     <div class="mt-1">

@@ -56,13 +56,13 @@
                         </a>
                         <ul class="menu-sub">
                           <li class="menu-item">
-                            <a href="{{route('pemantauan-penggunaan-periodik.index')}}" class="menu-link">
+                            <a href="{{route('periodik-penggunaan.index')}}" class="menu-link">
                               <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
                               <div data-i18n="Penggunaan">Penggunaan</div>
                             </a>
                           </li>
                            <li class="menu-item">
-                            <a href="{{route('pemantauan-pemanfaatan-periodik.index')}}" class="menu-link">
+                            <a href="app-ecommerce-dashboard.html" class="menu-link">
                               <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
                               <div data-i18n="Pemanfaatan">Pemanfaatan</div>
                             </a>

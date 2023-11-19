@@ -28,10 +28,14 @@ return new class extends Migration
             $table->string('nup')->nullable()->default('KOSONG');
             $table->float('nilai_buku')->nullable()->default('0');
             $table->string('status_psp')->nullable()->default('KOSONG');
-            $table->string('no_psp')->nullable()->default('KOSONG');
-            $table->date('tgl_psp')->nullable();
+            $table->string('nomor_psp')->nullable()->default('KOSONG');
+            $table->date('tanggal_psp')->nullable();
             $table->text('ket_psp')->nullable()->default('KOSONG');
             $table->string('status_sesuai_Form1')->nullable()->default('KOSONG');
+            $table->string('kesesuaian_psp')->nullable()->default('KOSONG');
+            $table->string('digunakan_sebagai')->nullable()->default('KOSONG');
+            $table->string('rencana_alih_fungsi')->nullable()->default('KOSONG');
+            $table->string('status_sesuai_Form2')->nullable()->default('KOSONG');
             $table->boolean('isCompletedForm1')->nullable()->default(false);
             $table->boolean('isCompletedForm2')->nullable()->default(false);
             $table->boolean('isCompletedForm3')->nullable()->default(false);

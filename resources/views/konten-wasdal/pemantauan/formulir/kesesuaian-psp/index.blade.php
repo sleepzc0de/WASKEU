@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css')}}" />
 <!-- Form Validation -->
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/spinkit/spinkit.css')}}" />
+{{-- <meta name="psp-form-index" content="{{ route('form-psp.index') }}"> --}}
 
 @endsection
 @section('script')
@@ -53,7 +53,7 @@ $(function () {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Loading...'
             },
             serverSide: true,
-            ajax: "{{ route('form-psp.index') }}",
+            ajax: "{{ route('form-kesesuaian-psp.index') }}",
             autoWidth: true,
             scrollY: 200,
             scrollX: true,
@@ -65,8 +65,14 @@ $(function () {
                     orderable: false,
                     searchable: false,
                 },
-
-                { data: "nilai_buku", name: "nilai_buku" },
+                { data: "nm_jns_bmn", name: "nm_jns_bmn" },
+                { data: "kd_brg", name: "kd_brg" },
+                { data: "no_aset", name: "no_aset" },
+                { data: "rph_buku", name: "rph_buku" },
+                { data: "tgl_psp", name: "tgl_psp" },
+                { data: "status_psp", name: "status_psp" },
+                { data: "no_psp", name: "no_psp" },
+                { data: "status_sesuai_Form1", name: "status_sesuai_Form1" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -74,8 +80,21 @@ $(function () {
                     searchable: false,
                 },
             ],
+            // columnDefs: [
+            //     {
+            //         // For Responsive
+            //         className: "control",
+            //         orderable: false,
+            //         searchable: false,
+            //         responsivePriority: 2,
+            //         targets: 0,
+            //         render: function (data, type, full, meta) {
+            //             return "";
+            //         },
+            //     },
+            // ],
             dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-            // displayLength: 5,
+            displayLength: 5,
             lengthMenu: [5,25,50,100],
             buttons: [
                 {
@@ -196,46 +215,13 @@ $(function () {
 });
 
 </script>
-
-
-<script>
-    $(document).ready(function() {
-    $('#generateForm').submit(function(e) {
-        e.preventDefault(); // Prevent default form submission
-
-        $('#generateBtn').prop('disabled', true); // Disable the button
-        $('#loadingIndicator').css('visibility', 'visible'); // Show loading indicator
-
-        // Perform form submission via AJAX
-        $.ajax({
-            type: $(this).attr('method'),
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response) {
-                // Hide loading indicator, enable button, show success notification, and refresh the table
-                $('#loadingIndicator').css('visibility', 'hidden');
-                $('#generateBtn').prop('disabled', false);
-                location.reload(); // Refresh the page to update the table data
-            },
-            error: function(error) {
-                // Handle errors here
-                console.error('Error:', error);
-                $('#loadingIndicator').css('visibility', 'hidden');
-                $('#generateBtn').prop('disabled', false);
-                // Show error notification if needed
-            }
-        });
-    });
-});
-
-</script>
 @endsection
 
 
 @section('content')
 
 <!-- DataTable with Buttons -->
-{{-- <div class="card">
+<div class="card">
 
     <div class="card-datatable table-responsive pt-0">
         <div class="pt-3 px-5">
@@ -249,81 +235,18 @@ $(function () {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>KODE UE1</th>
-                    <th>UE1</th>
-                    <th>KANWIL</th>
-                    <th>SATKER</th>
-                    <th>KODE SATKER</th>
-                    <th>NAMA SATKER</th>
                     <th>JENIS BMN</th>
                     <th>KODE BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
+                    <th>TANGGAL PSP</th>
+                    <th>STATUS PSP</th>
+                    <th>NOMOR PSP</th>
+                    <th>STATUS SESUAI</th>
                     <th>AKSI</th>
                 </tr>
             </thead>
         </table>
     </div>
-</div> --}}
-
-
-
-@if (count($data) <= 0) <div class="py-2">
-    <form id="generateForm" method="POST" action="{{ route('getDataPemantauanPenggunaan') }}">
-        @csrf
-       <div style="display: flex; align-items: center;">
-    <button id="generateBtn" class="btn btn-outline-info" type="submit">Generate Data</button>
-    <div id="loadingIndicator" style="display: none; visibility: hidden; display: flex; align-items: center; margin-left: 10px;">
-        <span>Loading...</span>
-        <div class="sk-wave sk-primary" style="margin-left: 5px;">
-            <div class="sk-wave-rect"></div>
-            <div class="sk-wave-rect"></div>
-            <div class="sk-wave-rect"></div>
-            <div class="sk-wave-rect"></div>
-            <div class="sk-wave-rect"></div>
-        </div>
-    </div>
 </div>
-
-    </form>
-
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
-    </div>
-    @endif
-
-    <div class="card">
-
-        <div class="card-datatable table-responsive pt-0">
-            <div class="pt-3 px-5">
-                @include('layouts.wasdal.session_notif')
-                <a href="{{ route('form-psp.create') }}" class="btn btn-label-primary btn-fab demo">
-                    <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
-                </a>
-
-            </div>
-
-            <table class="datatables-basic table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>NILAI BUKU</th>
-                        <th>AKSI</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-
-
-
-
-    @endsection
+@endsection

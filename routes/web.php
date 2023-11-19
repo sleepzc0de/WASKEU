@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\helper\HelperWasdalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\wasdal\pemantauan\form\FormKesesuaianPSPController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormPSPController;
 use App\Http\Controllers\wasdal\pemantauan\PemantauanPeriodikController;
 use App\Http\Controllers\wasdal\pemantauan\periodik\PemantauanPemanfaatanPeriodikController;
@@ -33,16 +35,21 @@ Route::middleware('auth')->group(function () {
 });
 
 
- Route::get('/pemantauan-periodik-pemanfaatan', [PemantauanPemanfaatanPeriodikController::class, 'index'])->name('pemantauan-pemanfaatan-periodik.index');
+ Route::resource('pemantauan-periodik-pemanfaatan', PemantauanPemanfaatanPeriodikController::class);
 
- Route::get('/pemantauan-periodik-penggunaan', [PemantauanPenggunaanPeriodikController::class, 'index'])->name('pemantauan-penggunaan-periodik.index');
 
- Route::prefix('pemantauan-periodik-penggunaan')->group(function () {
+
+ Route::prefix('pemantauan-penggunaan')->group(function () {
+     Route::resource('periodik-penggunaan', PemantauanPenggunaanPeriodikController::class);
      Route::resource('form-psp', FormPSPController::class);
-     Route::post('kode-barang/{id}', [FormPSPController::class, 'getKodeBarang'])->name('getKodeBarang');
-     Route::post('nup-barang/{id1}/{id2}', [FormPSPController::class, 'getNupBarang'])->name('getNupBarang');
-     Route::post('nilai-buku/{id1}/{id2}/{id3}', [FormPSPController::class, 'getNilaiBukuBarang'])->name('getNilaiBukuBarang');
+     Route::resource('form-kesesuaian-psp', FormKesesuaianPSPController::class);
+
 
 });
+
+ Route::post('kode-barang/{id}', [HelperWasdalController::class, 'getKodeBarang'])->name('getKodeBarang');
+     Route::post('nup-barang/{id1}/{id2}', [HelperWasdalController::class, 'getNupBarang'])->name('getNupBarang');
+     Route::post('nilai-buku/{id1}/{id2}/{id3}', [HelperWasdalController::class, 'getNilaiBukuBarang'])->name('getNilaiBukuBarang');
+    Route::post('generate-data-pemantauan-penggunaan', [HelperWasdalController::class, 'GenerateDataPemantauanPenggunaan'])->name('getDataPemantauanPenggunaan');
 
 require __DIR__.'/auth.php';
