@@ -44,6 +44,14 @@ return new class extends Migration
             $table->boolean('isCompletedForm6')->nullable()->default(false);
             $table->boolean('isCompletedForm7')->nullable()->default(false);
             $table->boolean('isCompletedForm8')->nullable()->default(false);
+            $table->boolean('isDeletedForm1')->nullable()->default(false);
+            $table->boolean('isDeletedForm2')->nullable()->default(false);
+            $table->boolean('isDeletedForm3')->nullable()->default(false);
+            $table->boolean('isDeletedForm4')->nullable()->default(false);
+            $table->boolean('isDeletedForm5')->nullable()->default(false);
+            $table->boolean('isDeletedForm6')->nullable()->default(false);
+            $table->boolean('isDeletedForm7')->nullable()->default(false);
+            $table->boolean('isDeletedForm8')->nullable()->default(false);
             $table->timestamps();
         });
     }

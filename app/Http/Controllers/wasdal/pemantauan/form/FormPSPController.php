@@ -81,7 +81,7 @@ class FormPSPController extends Controller
                 // 'tanggal_psp' => 'date|date_format:Y-m-d',
             ]);
 
-            $status_sesuai_Form1 = ($request->status_psp === '1') ? 'SESUAI' : 'TIDAK SESUAI';
+            $status_sesuai_Form1 = ($request->status_psp === 'SUDAH_PSP') ? 'SESUAI' : 'TIDAK SESUAI';
 
             $user =  PenggunaanModel::create([
                 'ue1' => 'DIREKTORAT JENDERAL PERBENDAHARAAN',
@@ -140,7 +140,7 @@ class FormPSPController extends Controller
             // VALIDASI DATA
             $request->validate([]);
 
-            $status_sesuai_Form1 = ($request->status_psp === '1') ? 'SESUAI' : 'TIDAK SESUAI';
+            $status_sesuai_Form1 = ($request->status_psp === 'SUDAH_PSP') ? 'SESUAI' : 'TIDAK SESUAI';
 
             // TAMPUNGAN REQUEST DATA DARI FORM
             $data = [
@@ -154,7 +154,6 @@ class FormPSPController extends Controller
 
 
             PenggunaanModel::findOrFail($id)->update($data);
-            // $berita = Berita::find($id)->update($data);
             return redirect()->route('form-psp.index')->with('success', "Data berhasil diupdate!");
         } catch (Exception $e) {
             return redirect()->route('form-psp.index')->with(['failed' => 'Data gagal diupdate! error :' . $e->getMessage()]);
@@ -167,7 +166,11 @@ class FormPSPController extends Controller
     public function destroy(string $id)
     {
         try {
-            PenggunaanModel::findOrFail($id)->delete();
+            $data = [
+                'isDeletedForm1' => true,
+            ];
+            PenggunaanModel::findOrFail($id)->update($data);
+            PenggunaanModel::findOrFail($id)->delete($data);
             return redirect()->route('form-psp.index')->with('success', "Data berhasil dihapus!");
         } catch (Exception $e) {
             return redirect()->route('form-psp.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);

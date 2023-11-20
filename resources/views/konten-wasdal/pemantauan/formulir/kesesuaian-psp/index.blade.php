@@ -221,9 +221,9 @@ $(function () {
     <div class="card-datatable table-responsive pt-0">
         <div class="pt-3 px-5">
              @include('layouts.wasdal.session_notif')
-            <a href="{{ route('form-kesesuaian-psp.create') }}" class="btn btn-label-primary btn-fab demo">
+            {{-- <a href="{{ route('form-kesesuaian-psp.create') }}" class="btn btn-label-primary btn-fab demo">
                 <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
-            </a>
+            </a> --}}
 
         </div>
 

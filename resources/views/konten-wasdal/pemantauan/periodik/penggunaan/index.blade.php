@@ -311,7 +311,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                                             </div>
                                                         </div>
                                                         <div class="add-btn">
-                                                            <button class="btn btn-primary btn-sm">Wasdal</button>
+                                                            <a href="{{route('form-kesesuaian-psp.index')}}"><button
+                                                                    class="btn btn-primary btn-sm">Wasdal</button></a>
                                                         </div>
                                                     </div>
                                                 </div>

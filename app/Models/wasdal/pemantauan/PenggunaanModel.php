@@ -31,7 +31,8 @@ class PenggunaanModel extends Model
         'kesesuaian_psp',
         'digunakan_sebagai',
         'rencana_alih_fungsi',
-        'status_sesuai_Form2','isCompletedForm1','isCompletedForm2','isCompletedForm3','isCompletedForm4','isCompletedForm5','isCompletedForm6','isCompletedForm7','isCompletedForm8'];
+        'status_sesuai_Form2','isCompletedForm1','isCompletedForm2','isCompletedForm3','isCompletedForm4','isCompletedForm5','isCompletedForm6','isCompletedForm7','isCompletedForm8',
+        'isDeletedForm1','isDeletedForm2','isDeletedForm3','isDeletedForm4','isDeletedForm5','isDeletedForm6','isDeletedForm7','isDeletedForm8'];
 
 
     public function ref_status_psp()
