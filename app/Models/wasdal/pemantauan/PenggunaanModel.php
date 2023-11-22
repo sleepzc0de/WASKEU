@@ -8,11 +8,16 @@ use App\Models\wasdal\referensi\StatusPSPModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class PenggunaanModel extends Model
 {
     use HasFactory;
     protected $table = 't_pemantauan_penggunaan';
      protected $fillable = [
+        'tahun',
+        'periode',
+        'jenis_pemantauan',
+        'role',
         'ue1',
         'nama_satker',
         'kode_satker',

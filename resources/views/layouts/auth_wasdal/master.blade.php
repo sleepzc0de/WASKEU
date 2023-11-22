@@ -163,8 +163,8 @@
                         id="TahunWasdal"
                         class="select2 form-select form-select-lg"
                         data-allow-clear="true" @error('tahun_wasdal') is-invalid @enderror required>
-                        <option disabled>Pilih Tahun</option>
-                        <option selected value="2023">2023</option>
+                        <option selected disabled>Pilih Tahun</option>
+                        <option value="2023">2023</option>
                       </select>
                       <label for="TahunWasdal">Tahun</label>
                     </div>
@@ -177,9 +177,9 @@
                         id="select2Basic"
                         class="select2 form-select form-select-lg"
                         data-allow-clear="true" @error('periode_wasdal') is-invalid @enderror required>
-                        <option disabled>Pilih Periode</option>
-                        <option value="SEMESTER_1" disabled>Semester I</option>
-                        <option selected="SEMESTER_2">Semester II</option>
+                        <option selected disabled>Pilih Periode</option>
+                        <option value="SEMESTER_1">Semester I</option>
+                        <option value="SEMESTER_2">Semester II</option>
                         <option value="TAHUNAN">Tahunan</option>
                       </select>
                       <label for="select2Basic">Periode</label>

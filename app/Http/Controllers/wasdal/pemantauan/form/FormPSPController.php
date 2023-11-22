@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class FormPSPController extends Controller
 {
@@ -22,10 +24,8 @@ class FormPSPController extends Controller
 
     public function index()
     {
-    
-        // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
-        // dd(Auth::user()->nama_pegawai);
 
+        // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
 
         $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->select('*');
 

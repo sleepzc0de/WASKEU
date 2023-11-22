@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
  Route::resource('pemantauan-periodik-pemanfaatan', PemantauanPemanfaatanPeriodikController::class);
 
- Route::prefix('pemantauan-penggunaan')->middleware('auth')->group(function () {
+ Route::prefix('pemantauan-penggunaan')->middleware('auth','role:KPB')->group(function () {
      Route::resource('periodik-penggunaan', PemantauanPenggunaanPeriodikController::class);
      Route::resource('form-psp', FormPSPController::class);
      Route::resource('form-kesesuaian-psp', FormKesesuaianPSPController::class);

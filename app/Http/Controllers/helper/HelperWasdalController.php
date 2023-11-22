@@ -68,7 +68,32 @@ class HelperWasdalController extends Controller
                 ->get();
 
             foreach ($dataToInsert as $data) {
+
+                // LOGIKA WASDAL GENERATE DATA SIMAN V2
+                $user = Auth::user();
+                $role = '';
+
+                if ($user->id_satker === 'ANAK SATKER' || $user->id_satker === 'INDUK SATKER') {
+                    $role = 'KPB';
+                } elseif ($user->id_satker === 'KANWIL') {
+                    $role = 'PPB-W';
+                } elseif ($user->id_satker === 'ES1') {
+                    $role = 'PPB-E1';
+                } elseif ($user->id_satker === 'PENGGUNA') {
+                    $role = 'PB';
+                } elseif ($user->id_satker === 'PENGELOLA') {
+                    $role = 'PENGELOLA';
+                } elseif ($user->id_satker === 'AUDITOR') {
+                    $role = 'AUDITOR';
+                } else {
+                    $role = 'TAMU';
+                }
+
                 $newData = [
+                    'tahun' => session('tahun_wasdal'),
+                    'periode'=>session('periode_wasdal'),
+                    'jenis_pemantauan'=> session('jenis_pemantauan_wasdal'),
+                    'role' => $role,
                     'ue1' => $data->ur_eselon1,
                     'nama_satker' => $data->ur_satker,
                     'kode_satker' => $data->kd_satker_6digit,
