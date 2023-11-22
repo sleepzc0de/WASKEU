@@ -38,7 +38,7 @@
     <div class="card mb-4">
         @include('layouts.wasdal.session_notif')
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Wasdal Formulir PSP | Kode Satker : {{$data->kode_anak_satker}} | Kode Barang: {{$data->kode_barang}} | Nup : {{$data->nup}}</h5><br>
+            <h5 class="mb-0">PSP | Kode Satker : {{$data->kode_anak_satker}} | Kode Barang: {{$data->kode_barang}} | Nup : {{$data->nup}}</h5><br>
         </div>
         <div class="card-body">
             <form action="{{route('form-psp.update',$data->id)}}" method="post" enctype="multipart/form-data" autocomplete="off">

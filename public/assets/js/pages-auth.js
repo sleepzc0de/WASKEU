@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
-          'email-username': {
+          'username': {
             validators: {
               notEmpty: {
-                message: 'Please enter email / username'
+                message: 'Please enter username'
               },
               stringLength: {
                 min: 6,
@@ -77,7 +77,29 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 message: 'Please agree terms & conditions'
               }
             }
+          },
+          tahun_wasdal: {
+            validators: {
+              notEmpty: {
+                message: 'Mohon dipilih tahun wasdal'
+              }
+            }
+          },
+          periode_wasdal: {
+            validators: {
+              notEmpty: {
+                message: 'Mohon dipilih periode wasdal'
+              }
+            }
+          },
+          jenis_pemantauan_wasdal: {
+            validators: {
+              notEmpty: {
+                message: 'Mohon dipilih jenis pemantauan wasdal'
+              }
+            }
           }
+          
         },
         plugins: {
           trigger: new FormValidation.plugins.Trigger(),

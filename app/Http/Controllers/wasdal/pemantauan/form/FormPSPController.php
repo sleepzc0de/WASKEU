@@ -11,6 +11,8 @@ use App\Models\wasdal\siman\Simanv2Model;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class FormPSPController extends Controller
 {
@@ -20,9 +22,12 @@ class FormPSPController extends Controller
 
     public function index()
     {
+    
+        // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
+        // dd(Auth::user()->nama_pegawai);
 
 
-        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', '330171')->select('*');
+        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->select('*');
 
         if (request()->ajax()) {
             // $dataTable = datatables()->of($query)
@@ -51,7 +56,7 @@ class FormPSPController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        $data = PenggunaanModel::where('kode_satker', '330171')->get();
+        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->get();
         return view('konten-wasdal.pemantauan.formulir.psp.index', compact('data'));
     }
 
@@ -63,7 +68,7 @@ class FormPSPController extends Controller
         $status_psp = ref_status_psp::all();
         $refKodeBarang = ref_kode_barang_simanold::all();
         $refJenisBarang = ref_jenis_barang_simannew::all();
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', '330171')->get();
+        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->get();
 
 
         return view('konten-wasdal.pemantauan.formulir.psp.create', compact(['data', 'status_psp', 'refKodeBarang', 'refJenisBarang']));
@@ -125,7 +130,7 @@ class FormPSPController extends Controller
 
         $status_psp = ref_status_psp::all();
 
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', '330171')->findOrFail($id);
+        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->findOrFail($id);
         // dd($status_psp);
 
         return view('konten-wasdal.pemantauan.formulir.psp.edit', compact(['data', 'status_psp']));

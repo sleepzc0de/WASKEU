@@ -8,6 +8,7 @@ use App\Models\wasdal\referensi\ref_kode_barang_simanold;
 use App\Models\wasdal\siman\Simanv2Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HelperWasdalController extends Controller
 {
@@ -59,7 +60,7 @@ class HelperWasdalController extends Controller
      public function GenerateDataPemantauanPenggunaan()
     {
        try {
-            $dataToInsert = Simanv2Model::where('kd_satker_6digit', '330171')->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+            $dataToInsert = Simanv2Model::where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
         '6070201001',
         '6070301001',
         '6070401001',
