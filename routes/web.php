@@ -37,20 +37,24 @@ Route::middleware('auth')->group(function () {
 
  Route::resource('pemantauan-periodik-pemanfaatan', PemantauanPemanfaatanPeriodikController::class);
 
- Route::prefix('pemantauan-penggunaan')->middleware('auth','role:KPB')->group(function () {
+//  PEMANTAUAN PENGGUNAAN
+ Route::prefix('pemantauan-penggunaan')->middleware('auth')->group(function () {
      Route::resource('periodik-penggunaan', PemantauanPenggunaanPeriodikController::class);
      Route::resource('form-psp', FormPSPController::class);
      Route::resource('form-kesesuaian-psp', FormKesesuaianPSPController::class);
 
-     // REFERENSI
+     // REFERENSI PEMANTAUAN PENGGUNAAN
 
-Route::prefix('wasdal-referensi')->group(function () {
-Route::post('kode-barang-all', [HelperWasdalController::class, 'getKodeBarangAll'])->name('getKodeBarangAll');
-});
- Route::post('kode-barang/{id}', [HelperWasdalController::class, 'getKodeBarang'])->name('getKodeBarang');
-     Route::post('nup-barang/{id1}/{id2}', [HelperWasdalController::class, 'getNupBarang'])->name('getNupBarang');
-     Route::post('nilai-buku/{id1}/{id2}/{id3}', [HelperWasdalController::class, 'getNilaiBukuBarang'])->name('getNilaiBukuBarang');
-    Route::post('generate-data-pemantauan-penggunaan', [HelperWasdalController::class, 'GenerateDataPemantauanPenggunaan'])->name('getDataPemantauanPenggunaan');
+        Route::prefix('wasdal-referensi')->group(function () {
+            Route::post('kode-barang-all', [HelperWasdalController::class, 'getKodeBarangAll'])->name('getKodeBarangAll');
+        });
+
+    // HELPER PEMANTAUAN PENGGUNAAN
+
+        Route::post('kode-barang/{id}', [HelperWasdalController::class, 'getKodeBarang'])->name('getKodeBarang');
+        Route::post('nup-barang/{id1}/{id2}', [HelperWasdalController::class, 'getNupBarang'])->name('getNupBarang');
+        Route::post('nilai-buku/{id1}/{id2}/{id3}', [HelperWasdalController::class, 'getNilaiBukuBarang'])->name('getNilaiBukuBarang');
+        Route::post('generate-data-pemantauan-penggunaan', [HelperWasdalController::class, 'GenerateDataPemantauanPenggunaan'])->name('getDataPemantauanPenggunaan');
 });
 
 

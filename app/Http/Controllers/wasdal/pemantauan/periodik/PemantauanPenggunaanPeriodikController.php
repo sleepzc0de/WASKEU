@@ -4,49 +4,38 @@ namespace App\Http\Controllers\wasdal\pemantauan\periodik;
 
 use App\Http\Controllers\Controller;
 use App\Models\wasdal\pemantauan\PenggunaanModel;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 
 class PemantauanPenggunaanPeriodikController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        $query = PenggunaanModel::where('kode_satker','015050900035519000KD')->select('*');
-          if (request()->ajax()) {
-            return datatables()->of($query)
-               ->addColumn('opsi', function ($query) {
-                    // $preview = route('periodik-penggunaan.show', $query->id);
-                    $edit = route('periodik-penggunaan.edit', $query->id);
-                    $hapus = route('periodik-penggunaan.destroy', $query->id);
-                    return '
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
-                    <form action="' . $hapus . '" method="POST">
-													' . @csrf_field() . '
-													' . @method_field('DELETE') . '
-					<button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
-					</form>
-                    </div>
-                ';
-                })
+        // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
 
+        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->select('*');
 
-
-                ->rawColumns(['opsi'])
+        if (request()->ajax()) {
+             return datatables()->of($query)
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('konten-wasdal.pemantauan.periodik.penggunaan.index');
+        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->get();
+        return view('konten-wasdal.pemantauan.periodik.penggunaan.index', compact('data'));
     }
 
-    public function destroy(string $id)
-    {
-        try {
+    // public function destroy(string $id)
+    // {
+    //     try {
 
-            PenggunaanModel::findOrFail($id)->delete();
-            return redirect()->route('periodik-penggunaan.index')->with('success', "Data berhasil dihapus!");
-        } catch (Exception $e) {
-            return redirect()->route('periodik-penggunaan.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
-        }
-    }
+    //         PenggunaanModel::findOrFail($id)->delete();
+    //         return redirect()->route('periodik-penggunaan.index')->with('success', "Data berhasil dihapus!");
+    //     } catch (Exception $e) {
+    //         return redirect()->route('periodik-penggunaan.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
+    //     }
+    // }
 }

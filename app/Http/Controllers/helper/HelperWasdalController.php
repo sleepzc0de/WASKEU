@@ -15,11 +15,16 @@ class HelperWasdalController extends Controller
 
 
      public function getKodeBarang(Request $request) {
-        $kodeBarang = Simanv2Model::select('kd_brg','ur_sskel')->where('kd_satker','015050900035519000KD')->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+        // $kodeBarang = Simanv2Model::select('kd_brg','ur_sskel')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+        // '6070201001',
+        // '6070301001',
+        // '6070401001',
+        // '6070501001',])->where('kd_jns_bmn', $request->kd_jns_bmn)->groupBy('kd_brg','ur_sskel')->orderBy('kd_brg','asc')->get();
+        $kodeBarang = ref_kode_barang_simanold::select('KD_BRG','NM_BRG')->whereRaw("LEFT(KD_BRG,1) in ('2','3','4','5','8') ")->whereNotIn('KD_BRG',[ '6070101001',
         '6070201001',
         '6070301001',
         '6070401001',
-        '6070501001',])->where('kd_jns_bmn', $request->kd_jns_bmn)->groupBy('kd_brg','ur_sskel')->orderBy('kd_brg','asc')->get();
+        '6070501001',])->orderBy('KD_BRG','ASC')->get();
 
         // session(['kd_brg' => $request->kd_brg]);
         // session(['kd_jns_bmn' => $request->kd_jns_bmn]);
@@ -32,7 +37,7 @@ class HelperWasdalController extends Controller
         $kd_brg = $request->kd_brg;
 
 
-        $nupBarang = Simanv2Model::select('kd_brg','no_aset')->where('kd_satker','015050900035519000KD')->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+        $nupBarang = Simanv2Model::select('kd_brg','no_aset')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
         '6070201001',
         '6070301001',
         '6070401001',
@@ -47,7 +52,7 @@ class HelperWasdalController extends Controller
         $no_aset = $request->no_aset;
 
 
-        $nilaiBuku = Simanv2Model::select('rph_buku')->where('kd_satker','015050900035519000KD')->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+        $nilaiBuku = Simanv2Model::select('rph_buku')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
         '6070201001',
         '6070301001',
         '6070401001',

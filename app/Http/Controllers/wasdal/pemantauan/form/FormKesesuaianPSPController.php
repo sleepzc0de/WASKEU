@@ -10,6 +10,7 @@ use App\Models\wasdal\referensi\ref_kode_barang_simanold;
 use App\Models\wasdal\siman\Simanv2Model;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FormKesesuaianPSPController extends Controller
 
@@ -22,7 +23,7 @@ class FormKesesuaianPSPController extends Controller
     {
 
 
-        $query = PenggunaanModel::where('kode_satker', '330171')->where('status_psp', 'SUDAH_PSP')->select('*');
+        $query = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->select('*');
         // dd($query);
 
         if (request()->ajax()) {
@@ -52,7 +53,7 @@ class FormKesesuaianPSPController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        $data = PenggunaanModel::where('kode_satker', '330171')->get();
+        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->get();
         return view('konten-wasdal.pemantauan.formulir.kesesuaian-psp.index', compact('data'));
     }
 
@@ -83,7 +84,7 @@ class FormKesesuaianPSPController extends Controller
             ]);
 
             $status_sesuai_Form2 = ($request->kesesuaian_psp === 'SESUAI_PSP') ? 'SESUAI' : 'TIDAK SESUAI';
-            
+
             $user =  PenggunaanModel::create([
                 'ue1' => 'DIREKTORAT JENDERAL PERBENDAHARAAN',
                 'nama_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
@@ -124,9 +125,9 @@ class FormKesesuaianPSPController extends Controller
     {
 
         $kesesuaian_psp = ref_kesesuaian_psp::all();
-        $data = PenggunaanModel::where('kode_satker', '330171')->where('status_psp', 'SUDAH_PSP')->findOrFail($id);
+        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->findOrFail($id);
         $refKodeBarang = ref_kode_barang_simanold::whereRaw("LEFT(KD_BRG,1)=LEFT('{$data->kode_barang}',1)")->get();
-        
+
 
         return view('konten-wasdal.pemantauan.formulir.kesesuaian-psp.edit', compact(['data', 'kesesuaian_psp', 'refKodeBarang']));
     }
@@ -142,11 +143,17 @@ class FormKesesuaianPSPController extends Controller
 
             $status_sesuai_Form2 = ($request->kesesuaian_psp === 'SESUAI_PSP') ? 'SESUAI' : 'TIDAK SESUAI';
 
+            $digunakan_sebagai = ($request->kesesuaian_psp === 'SESUAI_PSP') ? '' : $request->digunakan_sebagai;
+
+            $rencana_alih_fungsi = ($request->kesesuaian_psp === 'SESUAI_PSP') ? '' : $request->rencana_alih_fungsi;
+
+
+
             // TAMPUNGAN REQUEST DATA DARI FORM
             $data = [
                 'kesesuaian_psp' => $request->kesesuaian_psp,
-                'digunakan_sebagai' => $request->digunakan_sebagai,
-                'rencana_alih_fungsi' => $request->rencana_alih_fungsi,
+                'digunakan_sebagai' => $digunakan_sebagai,
+                'rencana_alih_fungsi' => $rencana_alih_fungsi,
                 'nilai_buku' => $request->nilai_buku,
                 'status_sesuai_Form2' => $status_sesuai_Form2,
                 'isCompletedForm2' => true

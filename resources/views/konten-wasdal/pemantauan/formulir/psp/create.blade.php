@@ -133,7 +133,7 @@
 <div class="col-xxl">
     <div class="card mb-4">
         <div class="card-body">
-            <form action="{{route('form-kesesuaian-psp.store')}}" method="post" autocomplete="off">
+            <form action="{{route('form-psp.store')}}" method="post" autocomplete="off">
                 @csrf
                 <div class="accordion-body">
                     <div class="mb-3">
@@ -164,7 +164,7 @@
                             id="jenis_barang" aria-label="Jenis Barang">
                             <option selected disabled>Pilih Jenis Barang</option>
                             @foreach ($refJenisBarang as $item)
-                            <option value="{{$item->kd_jns_bmn}}">{{$loop->iteration." - ".$item->nm_jns_bmn}}</option>
+                            <option value="{{$item->nm_jns_bmn}}">{{$loop->iteration." - ".$item->nm_jns_bmn}}</option>
                             @endforeach
 
                         </select>
@@ -203,7 +203,7 @@
                             aria-label="Status PSP">
                             <option selected disabled>Pilih Status PSP</option>
                             @foreach ($status_psp as $item)
-                            <option value="{{ $item->id }}">{{$loop->iteration." - ".$item->ur_status_psp}}</option>
+                            <option value="{{ $item->status_psp }}">{{$loop->iteration." - ".$item->ur_status_psp}}</option>
                             @endforeach
 
                         </select>

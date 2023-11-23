@@ -109,7 +109,7 @@
                     <div class="col-sm-10">
                         <input value="{{ old('digunakan_sebagai') ?? $data->digunakan_sebagai }}"
                             name="digunakan_sebagai" type="text" class="form-control" id="digunakan_sebagai"
-                            placeholder="Nomor PSP" />
+                            placeholder="Digunakan Sebagai" />
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -120,7 +120,7 @@
                             aria-label="Rencana Alih Fungsi">
                             <option selected disabled>Pilih Referensi Barang</option>
                             @foreach ($refKodeBarang as $item)
-                            <option value="{{ $item->KD_BRG }}" {{ old('rencana_alih_fungsi',$data->rencana_alih_fungsi)
+                            <option value="{{ $item->NM_BRG }}" {{ old('rencana_alih_fungsi',$data->rencana_alih_fungsi)
                                 == $item->KD_BRG ?
                                 'selected' : ''}}>{{$item->KD_BRG." - ".$item->NM_BRG}}</option>
                             @endforeach

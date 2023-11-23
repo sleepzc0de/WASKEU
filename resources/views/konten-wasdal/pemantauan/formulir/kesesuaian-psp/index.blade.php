@@ -65,9 +65,44 @@ $(function () {
                     orderable: false,
                     searchable: false,
                 },
+                {
+                            data: "tahun",
+                            name: "tahun"
+                        },
+                        {
+                            data: "periode",
+                            name: "periode"
+                        },
+                        {
+                            data: "jenis_pemantauan",
+                            name: "jenis_pemantauan"
+                        },
+                        {
+                            data: "ue1",
+                            name: "ue1"
+                        },
+                        {
+                            data: "nama_satker",
+                            name: "nama_satker"
+                        },
+                        {
+                            data: "kode_satker",
+                            name: "kode_satker"
+                        },
+                        {
+                            data: "kode_anak_satker",
+                            name: "kode_anak_satker"
+                        },
+                        {
+                            data: "nama_anak_satker",
+                            name: "nama_anak_satker"
+                        },
                 { data: "nama_barang", name: "nama_barang" },
                  { data: "nup", name: "nup" },
                   { data: "nilai_buku", name: "nilai_buku" },
+                  { data: "kesesuaian_psp", name: "kesesuaian_psp" },
+                  { data: "digunakan_sebagai", name: "digunakan_sebagai" },
+                  { data: "rencana_alih_fungsi", name: "rencana_alih_fungsi" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -231,9 +266,20 @@ $(function () {
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>TAHUN WASDAL</th>
+                    <th>PERIODE WASDAL</th>
+                    <th>JENIS PEMANTAUAN WASDAL</th>
+                    <th>UE 1</th>
+                    <th>NAMA SATKER</th>
+                    <th>KODE SATKER</th>
+                    <th>KODE ANAK SATKER</th>
+                    <th>NAMA ANAK SATKER</th>
                     <th>NAMA BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
+                    <th>KESESUAIAN PSP</th>
+                    <th>DIGUNAKAN SEBAGAI</th>
+                    <th>RENCANA ALIH FUNGSI</th>
                     <th>AKSI</th>
                 </tr>
             </thead>

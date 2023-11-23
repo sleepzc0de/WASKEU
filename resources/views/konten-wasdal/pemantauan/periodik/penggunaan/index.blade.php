@@ -60,23 +60,43 @@ document.addEventListener('DOMContentLoaded', function () {
                     orderable: false,
                     searchable: false,
                 },
+                {
+                            data: "tahun",
+                            name: "tahun"
+                        },
+                        {
+                            data: "periode",
+                            name: "periode"
+                        },
+                        {
+                            data: "jenis_pemantauan",
+                            name: "jenis_pemantauan"
+                        },
+                        {
+                            data: "ue1",
+                            name: "ue1"
+                        },
+                        {
+                            data: "nama_satker",
+                            name: "nama_satker"
+                        },
+                        {
+                            data: "kode_satker",
+                            name: "kode_satker"
+                        },
+                        {
+                            data: "kode_anak_satker",
+                            name: "kode_anak_satker"
+                        },
+                        {
+                            data: "nama_anak_satker",
+                            name: "nama_anak_satker"
+                        },
                  { data: "jenis_barang", name: "jenis_barang" },
                  { data: "kode_barang", name: "kode_barang" },
                  { data: "nama_barang", name: "nama_barang" },
                  { data: "nup", name: "nup" },
                  { data: "nilai_buku", name: "nilai_buku" },
-                 { data: "status_psp", name: "status_psp" },
-                 { data: "nomor_psp", name: "nomor_psp" },
-                 { data: "tanggal_psp", name: "tanggal_psp" },
-                 { data: "ket_psp", name: "ket_psp" },
-                 { data: "status_sesuai_Form1", name: "status_sesuai_Form1" },
-                //  { data: "isCompletedForm1", name: "isCompletedForm1" },
-                {
-                    data: "opsi",
-                    name: "opsi",
-                    orderable: false,
-                    searchable: false,
-                },
             ],
             dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             displayLength: 5,
@@ -186,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
         $("div.head-label").html(
-            '<h5 class="card-title mb-0">Data Form Pemantauan - Penggunaan - Periodik</h5>'
+            '<h5 class="card-title mb-0">Data Pemantauan Penggunaan</h5>'
 
         );
     }
@@ -465,10 +485,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
                     <div class="card-datatable table-responsive pt-0">
                         <div class="pt-3 px-5">
-                            <a href="{{ route('periodik-penggunaan.create') }}"
+                            {{-- <a href="{{ route('periodik-penggunaan.create') }}"
                                 class="btn btn-label-primary btn-fab demo">
                                 <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
-                            </a>
+                            </a> --}}
+                            @if (count($data) <= 0)
+                    <div class="py-2">
+                        <form id="generateForm" method="POST" action="{{ route('getDataPemantauanPenggunaan') }}">
+                            @csrf
+                            <div style="display: flex; align-items: center;">
+                                <button id="generateBtn" class="btn btn-label-warning btn-fab demo" type="submit"><span class="tf-icons mdi mdi-24px mdi-database-sync me-1"></span>Generate Data</button>
+                                <div id="loadingIndicator"
+                                    style="display: none; visibility: hidden; display: flex; align-items: center; margin-left: 10px;">
+                                    <span>Sedang Proses Generate, jangan tutup halaman...</span>
+                                    <div class="sk-wave sk-primary" style="margin-left: 5px;">
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                        <div class="sk-wave-rect"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                @endif
 
                         </div>
 
@@ -476,18 +518,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>TAHUN WASDAL</th>
+                                    <th>PERIODE WASDAL</th>
+                                    <th>JENIS PEMANTAUAN WASDAL</th>
+                                    <th>UE 1</th>
+                                    <th>NAMA SATKER</th>
+                                    <th>KODE SATKER</th>
+                                    <th>KODE ANAK SATKER</th>
+                                    <th>NAMA ANAK SATKER</th>
                                     <th>JENIS BMN</th>
                                     <th>KODE BARANG</th>
                                     <th>NAMA BARANG</th>
                                     <th>NUP</th>
                                     <th>NILAI BUKU</th>
-                                    <th>STATUS PSP</th>
-                                    <th>NOMOR PSP</th>
-                                    <th>TANGGAL PSP</th>
-                                    <th>KETERANGAN PSP</th>
-                                    <th>STATUS SESUAI</th>
-                                    {{-- <th>COMPLETED</th> --}}
-                                    <th>AKSI</th>
                                 </tr>
                             </thead>
                         </table>

@@ -63,6 +63,18 @@
                             searchable: false,
                         },
                         {
+                            data: "tahun",
+                            name: "tahun"
+                        },
+                        {
+                            data: "periode",
+                            name: "periode"
+                        },
+                        {
+                            data: "jenis_pemantauan",
+                            name: "jenis_pemantauan"
+                        },
+                        {
                             data: "ue1",
                             name: "ue1"
                         },
@@ -244,38 +256,6 @@
             }, 300);
         });
     </script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#generateForm').submit(function(e) {
-                e.preventDefault(); // Prevent default form submission
-
-                $('#generateBtn').prop('disabled', true); // Disable the button
-                $('#loadingIndicator').css('visibility', 'visible'); // Show loading indicator
-
-                // Perform form submission via AJAX
-                $.ajax({
-                    type: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        // Hide loading indicator, enable button, show success notification, and refresh the table
-                        $('#loadingIndicator').css('visibility', 'hidden');
-                        $('#generateBtn').prop('disabled', false);
-                        location.reload(); // Refresh the page to update the table data
-                    },
-                    error: function(error) {
-                        // Handle errors here
-                        console.error('Error:', error);
-                        $('#loadingIndicator').css('visibility', 'hidden');
-                        $('#generateBtn').prop('disabled', false);
-                        // Show error notification if needed
-                    }
-                });
-            });
-        });
-    </script>
 @endsection
 
 
@@ -284,21 +264,6 @@
         <div class="py-2">
             <form id="generateForm" method="POST" action="{{ route('getDataPemantauanPenggunaan') }}">
                 @csrf
-                <div style="display: flex; align-items: center;">
-                    <button id="generateBtn" class="btn btn-outline-info" type="submit">Generate Data</button>
-                    <div id="loadingIndicator"
-                        style="display: none; visibility: hidden; display: flex; align-items: center; margin-left: 10px;">
-                        <span>Sedang Proses Generate, jangan tutup halaman...</span>
-                        <div class="sk-wave sk-primary" style="margin-left: 5px;">
-                            <div class="sk-wave-rect"></div>
-                            <div class="sk-wave-rect"></div>
-                            <div class="sk-wave-rect"></div>
-                            <div class="sk-wave-rect"></div>
-                            <div class="sk-wave-rect"></div>
-                        </div>
-                    </div>
-                </div>
-
             </form>
 
             @if (session('success'))
@@ -329,6 +294,9 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>TAHUN WASDAL</th>
+                        <th>PERIODE WASDAL</th>
+                        <th>JENIS PEMANTAUAN WASDAL</th>
                         <th>UE 1</th>
                         <th>NAMA SATKER</th>
                         <th>KODE SATKER</th>

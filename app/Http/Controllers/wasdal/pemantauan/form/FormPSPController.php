@@ -87,19 +87,76 @@ class FormPSPController extends Controller
             ]);
 
             $status_sesuai_Form1 = ($request->status_psp === 'SUDAH_PSP') ? 'SESUAI' : 'TIDAK SESUAI';
+            // LOGIKA WASDAL GENERATE DATA SIMAN V2
+            $user = Auth::user();
+            $role = '';
 
+            if ($user->id_satker === 'ANAK SATKER' || $user->id_satker === 'INDUK SATKER') {
+                $role = 'KPB';
+            } elseif ($user->id_satker === 'KANWIL') {
+                $role = 'PPB-W';
+            } elseif ($user->id_satker === 'ES1') {
+                $role = 'PPB-E1';
+            } elseif ($user->id_satker === 'PENGGUNA') {
+                $role = 'PB';
+            } elseif ($user->id_satker === 'PENGELOLA') {
+                $role = 'PENGELOLA';
+            } elseif ($user->id_satker === 'AUDITOR') {
+                $role = 'AUDITOR';
+            } else {
+                $role = 'TAMU';
+            }
+
+            // inputan ue1
+            // substr(Auth::user()->kode_satker,0,5);
+            if (substr($user->kode_satker,0,5) === '01501') {
+                $ue1 = 'SEKRETARIAT JENDERAL';
+            } elseif (substr($user->kode_satker,0,5) === '01502') {
+                $ue1 = 'INSPEKTORAT JENDERAL';
+            } elseif (substr($user->kode_satker,0,5) === '01503') {
+                $ue1 = 'DIREKTORAT JENDERAL ANGGARAN';
+            } elseif (substr($user->kode_satker,0,5) === '01504') {
+                $ue1 = 'DIREKTORAT JENDERAL PAJAK';
+            } elseif (substr($user->kode_satker,0,5) === '01505') {
+                $ue1 = 'DIREKTORAT JENDERAL BEA DAN CUKAI';
+            } elseif (substr($user->kode_satker,0,5) === '01506') {
+                $ue1 = 'DIREKTORAT JENDERAL PERIMBANGAN KEUANGAN';
+            } elseif (substr($user->kode_satker,0,5) === '01507') {
+                $ue1 = 'DITJEN PENGELOLAAN PEMBIAYAAN DAN RISIKO';
+            } elseif (substr($user->kode_satker,0,5) === '01508') {
+                $ue1 = 'DIREKTORAT JENDERAL PERBENDAHARAAN';
+            } elseif (substr($user->kode_satker,0,5) === '01509') {
+                $ue1 = 'DIREKTORAT JENDERAL KEKAYAAN NEGARA';
+            } elseif (substr($user->kode_satker,0,5) === '01511') {
+                $ue1 = 'BADAN PENDIDIKAN DAN PELATIHAN KEUANGAN';
+            } elseif (substr($user->kode_satker,0,5) === '01512') {
+                $ue1 = 'BADAN KEBIJAKAN FISKAL';
+            } elseif (substr($user->kode_satker,0,5) === '01513') {
+                $ue1 = 'LEMBAGA NATIONAL SINGLE WINDOW';
+            } elseif (substr($user->kode_satker,0,5) === '01599') {
+                $ue1 = 'AUDITOR';
+            }else {
+                $ue1 = 'KEMENTERIAN KEUANGAN';
+            }
+
+            $nama_barang = ref_kode_barang_simanold::where('KD_BRG',$request->kode_barang)->select('NM_BRG')->first();
             $user =  PenggunaanModel::create([
-                'ue1' => 'DIREKTORAT JENDERAL PERBENDAHARAAN',
-                'nama_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
-                'kode_satker' => '330171',
-                'nama_anak_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
-                'kode_anak_satker' => '015083300330171000KD',
+                'tahun' => session('tahun_wasdal'),
+                'periode' => session('periode_wasdal'),
+                'jenis_pemantauan' => session('jenis_pemantauan_wasdal'),
+                'ue1' => $ue1,
+                'nama_satker' => Auth::user()->nama_pegawai,
+                'kode_satker' => Auth::user()->satker,
+                'nama_anak_satker' => Auth::user()->nama_pegawai,
+                'kode_anak_satker' => Auth::user()->kode_satker,
+                'role' => $role,
                 'jenis_barang' => $request->jenis_barang,
+                'nama_barang' => $nama_barang->NM_BRG,
                 'kode_barang' => $request->kode_barang,
                 'nup' => $request->nup,
                 'nilai_buku' => $request->nilai_buku,
                 'status_psp' => $request->status_psp,
-                'no_psp' => $request->no_psp,
+                'nomor_psp' => $request->nomor_psp,
                 'tanggal_psp' => $request->tanggal_psp,
                 'ket_psp' => $request->ket_psp,
                 'status_sesuai_Form1' => $status_sesuai_Form1,
