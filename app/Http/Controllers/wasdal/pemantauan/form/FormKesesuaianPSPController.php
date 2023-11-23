@@ -53,28 +53,22 @@ class FormKesesuaianPSPController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->get();
+        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->get();
         return view('konten-wasdal.pemantauan.formulir.kesesuaian-psp.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $kesesuaian_psp = ref_kesesuaian_psp::all();
         $refKodeBarang = ref_kode_barang_simanold::all();
         $refJenisBarang = ref_jenis_barang_simannew::all();
-        $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->where('kode_satker', '330171')->get();
+        $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->get();
 
 
         return view('konten-wasdal.pemantauan.formulir.kesesuaian-psp.create', compact(['data', 'kesesuaian_psp', 'refKodeBarang', 'refJenisBarang']));
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -85,12 +79,69 @@ class FormKesesuaianPSPController extends Controller
 
             $status_sesuai_Form2 = ($request->kesesuaian_psp === 'SESUAI_PSP') ? 'SESUAI' : 'TIDAK SESUAI';
 
+            // LOGIKA WASDAL GENERATE DATA SIMAN V2
+            $user = Auth::user();
+            $role = '';
+
+            if ($user->id_satker === 'ANAK SATKER' || $user->id_satker === 'INDUK SATKER') {
+                $role = 'KPB';
+            } elseif ($user->id_satker === 'KANWIL') {
+                $role = 'PPB-W';
+            } elseif ($user->id_satker === 'ES1') {
+                $role = 'PPB-E1';
+            } elseif ($user->id_satker === 'PENGGUNA') {
+                $role = 'PB';
+            } elseif ($user->id_satker === 'PENGELOLA') {
+                $role = 'PENGELOLA';
+            } elseif ($user->id_satker === 'AUDITOR') {
+                $role = 'AUDITOR';
+            } else {
+                $role = 'TAMU';
+            }
+
+            // inputan ue1
+            // substr(Auth::user()->kode_satker,0,5);
+            if (substr($user->kode_satker,0,5) === '01501') {
+                $ue1 = 'SEKRETARIAT JENDERAL';
+            } elseif (substr($user->kode_satker,0,5) === '01502') {
+                $ue1 = 'INSPEKTORAT JENDERAL';
+            } elseif (substr($user->kode_satker,0,5) === '01503') {
+                $ue1 = 'DIREKTORAT JENDERAL ANGGARAN';
+            } elseif (substr($user->kode_satker,0,5) === '01504') {
+                $ue1 = 'DIREKTORAT JENDERAL PAJAK';
+            } elseif (substr($user->kode_satker,0,5) === '01505') {
+                $ue1 = 'DIREKTORAT JENDERAL BEA DAN CUKAI';
+            } elseif (substr($user->kode_satker,0,5) === '01506') {
+                $ue1 = 'DIREKTORAT JENDERAL PERIMBANGAN KEUANGAN';
+            } elseif (substr($user->kode_satker,0,5) === '01507') {
+                $ue1 = 'DITJEN PENGELOLAAN PEMBIAYAAN DAN RISIKO';
+            } elseif (substr($user->kode_satker,0,5) === '01508') {
+                $ue1 = 'DIREKTORAT JENDERAL PERBENDAHARAAN';
+            } elseif (substr($user->kode_satker,0,5) === '01509') {
+                $ue1 = 'DIREKTORAT JENDERAL KEKAYAAN NEGARA';
+            } elseif (substr($user->kode_satker,0,5) === '01511') {
+                $ue1 = 'BADAN PENDIDIKAN DAN PELATIHAN KEUANGAN';
+            } elseif (substr($user->kode_satker,0,5) === '01512') {
+                $ue1 = 'BADAN KEBIJAKAN FISKAL';
+            } elseif (substr($user->kode_satker,0,5) === '01513') {
+                $ue1 = 'LEMBAGA NATIONAL SINGLE WINDOW';
+            } elseif (substr($user->kode_satker,0,5) === '01599') {
+                $ue1 = 'AUDITOR';
+            }else {
+                $ue1 = 'KEMENTERIAN KEUANGAN';
+            }
+
+
             $user =  PenggunaanModel::create([
-                'ue1' => 'DIREKTORAT JENDERAL PERBENDAHARAAN',
-                'nama_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
-                'kode_satker' => '330171',
-                'nama_anak_satker' => 'KANWIL DJPB PROP. PAPUA BARAT',
-                'kode_anak_satker' => '015083300330171000KD',
+                'tahun' => session('tahun_wasdal'),
+                'periode' => session('periode_wasdal'),
+                'jenis_pemantauan' => session('jenis_pemantauan_wasdal'),
+                'ue1' => $ue1,
+                'nama_satker' => Auth::user()->nama_pegawai,
+                'kode_satker' => Auth::user()->satker,
+                'nama_anak_satker' => Auth::user()->nama_pegawai,
+                'kode_anak_satker' => Auth::user()->kode_satker,
+                'role' => $role,
                 'jenis_barang' => $request->jenis_barang,
                 'kode_barang' => $request->kode_barang,
                 'nup' => $request->nup,
@@ -110,17 +161,12 @@ class FormKesesuaianPSPController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         return null;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
 
@@ -132,9 +178,6 @@ class FormKesesuaianPSPController extends Controller
         return view('konten-wasdal.pemantauan.formulir.kesesuaian-psp.edit', compact(['data', 'kesesuaian_psp', 'refKodeBarang']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         try {
@@ -160,16 +203,12 @@ class FormKesesuaianPSPController extends Controller
             ];
 
             PenggunaanModel::findOrFail($id)->update($data);
-            // $berita = Berita::find($id)->update($data);
             return redirect()->route('form-kesesuaian-psp.index')->with('success', "Data berhasil diupdate!");
         } catch (Exception $e) {
             return redirect()->route('form-kesesuaian-psp.index')->with(['failed' => 'Data gagal diupdate! error :' . $e->getMessage()]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         try {

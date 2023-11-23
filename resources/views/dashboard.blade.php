@@ -18,13 +18,17 @@
     <p>Tahun dari session: {{ session('periode_wasdal') }}</p>
     <p>Tahun dari session: {{ session('jenis_pemantauan_wasdal') }}</p>
 
+    {{ Auth::user()->nama_pegawai }}
+    {{ Auth::user()->role }}
+
     @if (session('tahun_wasdal')==='2023')
+
 
     Mantap
     @else
 
     Mohon Cek Kembali Tahunnya Saat Login
-        
+
     @endif
 
 </x-app-layout>

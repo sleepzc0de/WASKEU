@@ -260,7 +260,7 @@
 
 
 @section('content')
-    @if (count($data) <= 0)
+    {{-- @if (count($data) <= 0)
         <div class="py-2">
             <form id="generateForm" method="POST" action="{{ route('getDataPemantauanPenggunaan') }}">
                 @csrf
@@ -277,7 +277,7 @@
                 </div>
             @endif
         </div>
-    @endif
+    @endif --}}
 
     <div class="card">
 

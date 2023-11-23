@@ -36,7 +36,16 @@ class PenggunaanModel extends Model
         'kesesuaian_psp',
         'digunakan_sebagai',
         'rencana_alih_fungsi',
-        'status_sesuai_Form2','isCompletedForm1','isCompletedForm2','isCompletedForm3','isCompletedForm4','isCompletedForm5','isCompletedForm6','isCompletedForm7','isCompletedForm8',
+        'status_sesuai_Form2',
+        'status_penggunaan',
+        'rencana',
+        'penilai_persentase_kesesuaian_sbsk',
+        'luas_sbsk',
+        'luas_pengurang',
+        'luas_ts_db',
+        'luas_digunakan',
+        'persentase_penilaian_pengelola_pengguna',
+        'isCompletedForm1','isCompletedForm2','isCompletedForm3','isCompletedForm4','isCompletedForm5','isCompletedForm6','isCompletedForm7','isCompletedForm8',
         'isDeletedForm1','isDeletedForm2','isDeletedForm3','isDeletedForm4','isDeletedForm5','isDeletedForm6','isDeletedForm7','isDeletedForm8'];
 
 

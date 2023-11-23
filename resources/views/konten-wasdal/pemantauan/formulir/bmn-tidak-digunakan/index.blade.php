@@ -100,9 +100,7 @@ $(function () {
                 { data: "nama_barang", name: "nama_barang" },
                  { data: "nup", name: "nup" },
                   { data: "nilai_buku", name: "nilai_buku" },
-                  { data: "kesesuaian_psp", name: "kesesuaian_psp" },
-                  { data: "digunakan_sebagai", name: "digunakan_sebagai" },
-                  { data: "rencana_alih_fungsi", name: "rencana_alih_fungsi" },
+                  { data: "rencana", name: "rencana" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -231,7 +229,7 @@ $(function () {
 
         });
         $("div.head-label").html(
-            '<h5 class="card-title mb-0">Penggunaan - Kesesuaian PSP</h5>'
+            '<h5 class="card-title mb-0">Penggunaan - BMN Tidak Digunakan</h5>'
 
         );
     }
@@ -250,19 +248,25 @@ $(function () {
 
 @section('content')
 
+<!-- DataTable with Buttons -->
+
 @if (count($data) <= 0)
 
-<div class="alert alert-solid-info d-flex align-items-center" role="alert">
+<div class="alert alert-solid-success d-flex align-items-center" role="alert">
     <i class="mdi mdi-check-circle-outline me-2"></i>
-    Tidak Mempunyai Data Kesesuaian PSP, Mohon dilengkapi data pada Form PSP
+    Tidak Mempunyai Data BMN yang Status Penggunaannya Tidak Digunakan
 </div>
 
 @else
 
-<!-- DataTable with Buttons -->
 <div class="card">
 
+
+
     <div class="card-datatable table-responsive pt-0">
+
+
+
         <div class="pt-3 px-5">
              @include('layouts.wasdal.session_notif')
             {{-- <a href="{{ route('form-kesesuaian-psp.create') }}" class="btn btn-label-primary btn-fab demo">
@@ -286,14 +290,15 @@ $(function () {
                     <th>NAMA BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
-                    <th>KESESUAIAN PSP</th>
-                    <th>DIGUNAKAN SEBAGAI</th>
-                    <th>RENCANA ALIH FUNGSI</th>
+                    <th>RENCANA</th>
                     <th>AKSI</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
+
+
 @endif
+
 @endsection

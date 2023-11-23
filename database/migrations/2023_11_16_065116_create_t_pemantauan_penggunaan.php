@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('nama_barang')->nullable()->default('KOSONG');
             $table->string('kode_barang')->nullable()->default('KOSONG');
             $table->string('nup')->nullable()->default('KOSONG');
-            $table->float('nilai_buku')->nullable()->default('0');
+            $table->float('nilai_buku')->nullable()->default(0);
             $table->string('status_psp')->nullable()->default('KOSONG');
             $table->string('nomor_psp')->nullable()->default('KOSONG');
             $table->date('tanggal_psp')->nullable();
@@ -36,6 +36,14 @@ return new class extends Migration
             $table->string('digunakan_sebagai')->nullable()->default('KOSONG');
             $table->string('rencana_alih_fungsi')->nullable()->default('KOSONG');
             $table->string('status_sesuai_Form2')->nullable()->default('KOSONG');
+            $table->string('status_penggunaan')->nullable()->default('KOSONG');
+            $table->string('rencana')->nullable()->default('KOSONG');
+            $table->string('penilai_persentase_kesesuaian_sbsk')->nullable()->default('KOSONG');
+            $table->float('luas_sbsk')->nullable()->default(0);
+            $table->float('luas_pengurang')->nullable()->default(0);
+            $table->float('luas_ts_db')->nullable()->default(0);
+            $table->float('luas_digunakan')->nullable()->default(0);
+            $table->float('persentase_penilaian_pengelola_pengguna')->nullable()->default(0);
             $table->boolean('isCompletedForm1')->nullable()->default(false);
             $table->boolean('isCompletedForm2')->nullable()->default(false);
             $table->boolean('isCompletedForm3')->nullable()->default(false);

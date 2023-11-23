@@ -27,7 +27,12 @@ class FormPSPController extends Controller
 
         // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
 
-        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->select('*');
+        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
+        '6070201001',
+        '6070301001',
+        '6070401001',
+        '6070501001',])
+        ->select('*');
 
         if (request()->ajax()) {
             // $dataTable = datatables()->of($query)
@@ -56,7 +61,11 @@ class FormPSPController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->get();
+        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
+        '6070201001',
+        '6070301001',
+        '6070401001',
+        '6070501001',])->get();
         return view('konten-wasdal.pemantauan.formulir.psp.index', compact('data'));
     }
 
@@ -68,7 +77,11 @@ class FormPSPController extends Controller
         $status_psp = ref_status_psp::all();
         $refKodeBarang = ref_kode_barang_simanold::all();
         $refJenisBarang = ref_jenis_barang_simannew::all();
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->get();
+        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
+        '6070201001',
+        '6070301001',
+        '6070401001',
+        '6070501001',])->get();
 
 
         return view('konten-wasdal.pemantauan.formulir.psp.create', compact(['data', 'status_psp', 'refKodeBarang', 'refJenisBarang']));
@@ -187,7 +200,11 @@ class FormPSPController extends Controller
 
         $status_psp = ref_status_psp::all();
 
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->findOrFail($id);
+        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
+        '6070201001',
+        '6070301001',
+        '6070401001',
+        '6070501001',])->findOrFail($id);
         // dd($status_psp);
 
         return view('konten-wasdal.pemantauan.formulir.psp.edit', compact(['data', 'status_psp']));

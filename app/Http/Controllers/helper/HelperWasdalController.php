@@ -14,86 +14,98 @@ class HelperWasdalController extends Controller
 {
 
 
-     public function getKodeBarang(Request $request) {
-        // $kodeBarang = Simanv2Model::select('kd_brg','ur_sskel')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
-        // '6070201001',
-        // '6070301001',
-        // '6070401001',
-        // '6070501001',])->where('kd_jns_bmn', $request->kd_jns_bmn)->groupBy('kd_brg','ur_sskel')->orderBy('kd_brg','asc')->get();
-        $kodeBarang = ref_kode_barang_simanold::select('KD_BRG','NM_BRG')->whereRaw("LEFT(KD_BRG,1) in ('2','3','4','5','8') ")->whereNotIn('KD_BRG',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])->orderBy('KD_BRG','ASC')->get();
+    //  public function getKodeBarang(Request $request) {
+    //     // $kodeBarang = Simanv2Model::select('kd_brg','ur_sskel')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+    //     // '6070201001',
+    //     // '6070301001',
+    //     // '6070401001',
+    //     // '6070501001',])->where('kd_jns_bmn', $request->kd_jns_bmn)->groupBy('kd_brg','ur_sskel')->orderBy('kd_brg','asc')->get();
+    //     $kodeBarang = ref_kode_barang_simanold::select('KD_BRG','NM_BRG')->whereRaw("LEFT(KD_BRG,1) in ('2','3','4','5','8') ")->whereNotIn('KD_BRG',[ '6070101001',
+    //     '6070201001',
+    //     '6070301001',
+    //     '6070401001',
+    //     '6070501001',])->orderBy('KD_BRG','ASC')->get();
 
-        // session(['kd_brg' => $request->kd_brg]);
-        // session(['kd_jns_bmn' => $request->kd_jns_bmn]);
+    //     // session(['kd_brg' => $request->kd_brg]);
+    //     // session(['kd_jns_bmn' => $request->kd_jns_bmn]);
 
-        return response()->json($kodeBarang);
-    }
+    //     return response()->json($kodeBarang);
+    // }
 
-    public function getNupBarang(Request $request) {
-        $kd_jns_bmn = $request->kd_jns_bmn;
-        $kd_brg = $request->kd_brg;
-
-
-        $nupBarang = Simanv2Model::select('kd_brg','no_aset')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])->where('kd_jns_bmn', $kd_jns_bmn)->where('kd_brg', $kd_brg)->get();
-        // dd($nupBarang);
-        return response()->json($nupBarang);
-    }
-
-     public function getNilaiBukuBarang(Request $request) {
-        $kd_jns_bmn = $request->kd_jns_bmn;
-        $kd_brg = $request->kd_brg;
-        $no_aset = $request->no_aset;
+    // public function getNupBarang(Request $request) {
+    //     $kd_jns_bmn = $request->kd_jns_bmn;
+    //     $kd_brg = $request->kd_brg;
 
 
-        $nilaiBuku = Simanv2Model::select('rph_buku')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])->where('kd_jns_bmn', $kd_jns_bmn)->where('kd_brg', $kd_brg)->where('no_aset', $no_aset)->get();
-        // dd($nilaiBuku);
-        return response()->json($nilaiBuku);
-    }
+    //     $nupBarang = Simanv2Model::select('kd_brg','no_aset')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+    //     '6070201001',
+    //     '6070301001',
+    //     '6070401001',
+    //     '6070501001',])->where('kd_jns_bmn', $kd_jns_bmn)->where('kd_brg', $kd_brg)->get();
+    //     // dd($nupBarang);
+    //     return response()->json($nupBarang);
+    // }
+
+    //  public function getNilaiBukuBarang(Request $request) {
+    //     $kd_jns_bmn = $request->kd_jns_bmn;
+    //     $kd_brg = $request->kd_brg;
+    //     $no_aset = $request->no_aset;
+
+
+    //     $nilaiBuku = Simanv2Model::select('rph_buku')->where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+    //     '6070201001',
+    //     '6070301001',
+    //     '6070401001',
+    //     '6070501001',])->where('kd_jns_bmn', $kd_jns_bmn)->where('kd_brg', $kd_brg)->where('no_aset', $no_aset)->get();
+    //     // dd($nilaiBuku);
+    //     return response()->json($nilaiBuku);
+    // }
 
 
      public function GenerateDataPemantauanPenggunaan()
     {
        try {
-            $dataToInsert = Simanv2Model::where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])
-                ->get();
+
+        $countStatusPenggunaan06 = Simanv2Model::where('kd_status', '06')
+        ->where('kd_satker_6digit', Auth::user()->satker)
+        ->count();
+
+         $isCompletedForm3 = $countStatusPenggunaan06 === 0 ? true : false;
+
+          // LOGIKA WASDAL GENERATE DATA SIMAN V2
+          $user = Auth::user();
+          $role = '';
+
+          if ($user->id_satker === 'ANAK SATKER' || $user->id_satker === 'INDUK SATKER') {
+              $role = 'KPB';
+          } elseif ($user->id_satker === 'KANWIL') {
+              $role = 'PPB-W';
+          } elseif ($user->id_satker === 'ES1') {
+              $role = 'PPB-E1';
+          } elseif ($user->id_satker === 'PENGGUNA') {
+              $role = 'PB';
+          } elseif ($user->id_satker === 'PENGELOLA') {
+              $role = 'PENGELOLA';
+          } elseif ($user->id_satker === 'AUDITOR') {
+              $role = 'AUDITOR';
+          } else {
+              $role = 'TAMU';
+          }
+
+
+        //     $dataToInsert = Simanv2Model::where('kd_satker_6digit', Auth::user()->satker)->whereRaw("LEFT(kd_brg,1) in ('2','3','4','5','8') ")->whereNotIn('kd_brg',[ '6070101001',
+        // '6070201001',
+        // '6070301001',
+        // '6070401001',
+        // '6070501001',])
+        //         ->get();
+        $dataToInsert = Simanv2Model::where('kd_satker_6digit', Auth::user()->satker)->get();
 
             foreach ($dataToInsert as $data) {
 
-                // LOGIKA WASDAL GENERATE DATA SIMAN V2
-                $user = Auth::user();
-                $role = '';
 
-                if ($user->id_satker === 'ANAK SATKER' || $user->id_satker === 'INDUK SATKER') {
-                    $role = 'KPB';
-                } elseif ($user->id_satker === 'KANWIL') {
-                    $role = 'PPB-W';
-                } elseif ($user->id_satker === 'ES1') {
-                    $role = 'PPB-E1';
-                } elseif ($user->id_satker === 'PENGGUNA') {
-                    $role = 'PB';
-                } elseif ($user->id_satker === 'PENGELOLA') {
-                    $role = 'PENGELOLA';
-                } elseif ($user->id_satker === 'AUDITOR') {
-                    $role = 'AUDITOR';
-                } else {
-                    $role = 'TAMU';
-                }
 
+                // LOGIC AUTOCOMPLETED KODE STATUS PENGGUNAAN KODE 06 (BMN DIHENTIKAN)
                 $newData = [
                     'tahun' => session('tahun_wasdal'),
                     'periode'=>session('periode_wasdal'),
@@ -110,7 +122,16 @@ class HelperWasdalController extends Controller
                     'nup' => $data->no_aset,
                     'nilai_buku'=>$data->rph_buku,
                      'tanggal_psp'=>$data->tgl_psp,
-                      'nomor_psp'=>$data->no_psp
+                      'nomor_psp'=>$data->no_psp,
+                      'status_penggunaan' => $data->kd_status,
+                      'isCompletedForm3' => $isCompletedForm3,
+                      'isCompletedForm3' => $isCompletedForm3,
+                      'isCompletedForm3' => $isCompletedForm3,
+                      'isCompletedForm3' => $isCompletedForm3,
+                      'isCompletedForm3' => $isCompletedForm3,
+                      'luas_sbsk' => $data->sbsk,
+                      'luas_ts_db' => $data->luas,
+
                 ];
 
                 PenggunaanModel::create($newData);
