@@ -18,8 +18,13 @@
     <p>Tahun dari session: {{ session('periode_wasdal') }}</p>
     <p>Tahun dari session: {{ session('jenis_pemantauan_wasdal') }}</p>
 
-    {{ Auth::user()->nama_pegawai }}
-    {{ Auth::user()->role }}
+    <h1>{{ Auth::user()->nama_pegawai }}</h1>
+    <h1>{{ Auth::user()->id_satker }}</h1>
+    <h1>{{ Auth::user()->getRoleNames() }} okwww</h1>
+
+    @role('PB')
+    <h3>CEKKK</h3>
+    @endrole
 
     @if (session('tahun_wasdal')==='2023')
 
