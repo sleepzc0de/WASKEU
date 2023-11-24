@@ -44,7 +44,38 @@ class PemantauanPenggunaanPeriodikController extends Controller
             }
 
             $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?',[Auth::user()->satker])->where('role','PPB-W')->get();
+        } elseif ($ES1) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,5) = ?',[Auth::user()->satker])->where('role','PPB-E1')->select('*');
+
+            if (request()->ajax()) {
+                 return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,5) = ?',[Auth::user()->satker])->where('role','PPB-E1')->get();
+        } elseif ($PENGGUNA) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->where('role','PB')->select('*');
+
+            if (request()->ajax()) {
+                 return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->where('role','PB')->get();
+        } elseif ($PENGELOLA) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->where('role','PENGELOLA')->select('*');
+
+            if (request()->ajax()) {
+                 return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->where('role','PENGELOLA')->get();
         }
+
 
 
 

@@ -53,7 +53,7 @@ $(function () {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Loading...'
             },
             serverSide: true,
-            ajax: "{{ route('form-kesesuaian-psp.index') }}",
+            ajax: "{{ route('form-bmn-tidak-digunakan.index') }}",
             autoWidth: true,
             scrollY: 200,
             scrollX: true,

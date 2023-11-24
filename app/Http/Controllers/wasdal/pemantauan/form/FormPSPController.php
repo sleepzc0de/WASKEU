@@ -27,45 +27,287 @@ class FormPSPController extends Controller
 
         // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
 
-        $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])
-        ->select('*');
+        $user = Auth::user();
+        $KPB = $user->hasRole('KPB');
+        $KANWIL = $user->hasRole('PPB-W');
+        $ES1 = $user->hasRole('PPB-E1');
+        $PENGGUNA = $user->hasRole('PB');
+        $PENGELOLA = $user->hasRole('PENGELOLA');
+        $AUDITOR = $user->hasRole('AUDITOR');
 
-        if (request()->ajax()) {
-            // $dataTable = datatables()->of($query)
-             return datatables()->of($query)
-                ->addColumn('opsi', function ($query) {
-                    // $preview = route('form-psp.show', $query->id);
-                    $edit = route('form-psp.edit', $query->id);
-                    $hapus = route('form-psp.destroy', $query->id);
-                    return '
-                    <div style="display: flex; justify-content: space-between;">
+        if ($KPB) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])
+                ->select('*');
 
-                    <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
-                    <form action="' . $hapus . '" method="POST">
-													' . @csrf_field() . '
-													' . @method_field('DELETE') . '
-													<button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
-													</form>
-                                                    </div>
-                ';
-                })
-                ->rawColumns(
-                    [
-                        'opsi'
-                    ]
-                )
-                ->addIndexColumn()
-                ->make(true);
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-psp.show', $query->id);
+                        $edit = route('form-psp.edit', $query->id);
+                        $hapus = route('form-psp.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
         }
-        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])->get();
+        elseif ($KANWIL) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])
+                ->select('*');
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-psp.show', $query->id);
+                        $edit = route('form-psp.edit', $query->id);
+                        $hapus = route('form-psp.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($ES1) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])
+                ->select('*');
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-psp.show', $query->id);
+                        $edit = route('form-psp.edit', $query->id);
+                        $hapus = route('form-psp.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($PENGGUNA) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])
+                ->select('*');
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-psp.show', $query->id);
+                        $edit = route('form-psp.edit', $query->id);
+                        $hapus = route('form-psp.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($PENGELOLA) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])
+                ->select('*');
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-psp.show', $query->id);
+                        $edit = route('form-psp.edit', $query->id);
+                        $hapus = route('form-psp.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($AUDITOR) {
+            $query = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])
+                ->select('*');
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-psp.show', $query->id);
+                        $edit = route('form-psp.edit', $query->id);
+                        $hapus = route('form-psp.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+
+
+
         return view('konten-wasdal.pemantauan.formulir.psp.index', compact('data'));
     }
 
@@ -77,11 +319,77 @@ class FormPSPController extends Controller
         $status_psp = ref_status_psp::all();
         $refKodeBarang = ref_kode_barang_simanold::all();
         $refJenisBarang = ref_jenis_barang_simannew::all();
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])->get();
+
+        $user = Auth::user();
+        $KPB = $user->hasRole('KPB');
+        $KANWIL = $user->hasRole('PPB-W');
+        $ES1 = $user->hasRole('PPB-E1');
+        $PENGGUNA = $user->hasRole('PB');
+        $PENGELOLA = $user->hasRole('PENGELOLA');
+        $AUDITOR = $user->hasRole('AUDITOR');
+
+        if ($KPB) {
+            // $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
+            // '6070201001',
+            // '6070301001',
+            // '6070401001',
+            // '6070501001',])->get();
+
+            $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($KANWIL) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($ES1) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($PENGGUNA) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($PENGELOLA) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+        elseif ($AUDITOR) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->get();
+        }
+
+
 
 
         return view('konten-wasdal.pemantauan.formulir.psp.create', compact(['data', 'status_psp', 'refKodeBarang', 'refJenisBarang']));
@@ -122,37 +430,37 @@ class FormPSPController extends Controller
 
             // inputan ue1
             // substr(Auth::user()->kode_satker,0,5);
-            if (substr($user->kode_satker,0,5) === '01501') {
+            if (substr($user->kode_satker, 0, 5) === '01501') {
                 $ue1 = 'SEKRETARIAT JENDERAL';
-            } elseif (substr($user->kode_satker,0,5) === '01502') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01502') {
                 $ue1 = 'INSPEKTORAT JENDERAL';
-            } elseif (substr($user->kode_satker,0,5) === '01503') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01503') {
                 $ue1 = 'DIREKTORAT JENDERAL ANGGARAN';
-            } elseif (substr($user->kode_satker,0,5) === '01504') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01504') {
                 $ue1 = 'DIREKTORAT JENDERAL PAJAK';
-            } elseif (substr($user->kode_satker,0,5) === '01505') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01505') {
                 $ue1 = 'DIREKTORAT JENDERAL BEA DAN CUKAI';
-            } elseif (substr($user->kode_satker,0,5) === '01506') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01506') {
                 $ue1 = 'DIREKTORAT JENDERAL PERIMBANGAN KEUANGAN';
-            } elseif (substr($user->kode_satker,0,5) === '01507') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01507') {
                 $ue1 = 'DITJEN PENGELOLAAN PEMBIAYAAN DAN RISIKO';
-            } elseif (substr($user->kode_satker,0,5) === '01508') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01508') {
                 $ue1 = 'DIREKTORAT JENDERAL PERBENDAHARAAN';
-            } elseif (substr($user->kode_satker,0,5) === '01509') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01509') {
                 $ue1 = 'DIREKTORAT JENDERAL KEKAYAAN NEGARA';
-            } elseif (substr($user->kode_satker,0,5) === '01511') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01511') {
                 $ue1 = 'BADAN PENDIDIKAN DAN PELATIHAN KEUANGAN';
-            } elseif (substr($user->kode_satker,0,5) === '01512') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01512') {
                 $ue1 = 'BADAN KEBIJAKAN FISKAL';
-            } elseif (substr($user->kode_satker,0,5) === '01513') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01513') {
                 $ue1 = 'LEMBAGA NATIONAL SINGLE WINDOW';
-            } elseif (substr($user->kode_satker,0,5) === '01599') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01599') {
                 $ue1 = 'AUDITOR';
-            }else {
+            } else {
                 $ue1 = 'KEMENTERIAN KEUANGAN';
             }
 
-            $nama_barang = ref_kode_barang_simanold::where('KD_BRG',$request->kode_barang)->select('NM_BRG')->first();
+            $nama_barang = ref_kode_barang_simanold::where('KD_BRG', $request->kode_barang)->select('NM_BRG')->first();
             $user =  PenggunaanModel::create([
                 'tahun' => session('tahun_wasdal'),
                 'periode' => session('periode_wasdal'),
@@ -200,12 +508,74 @@ class FormPSPController extends Controller
 
         $status_psp = ref_status_psp::all();
 
-        $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
-        '6070201001',
-        '6070301001',
-        '6070401001',
-        '6070501001',])->findOrFail($id);
+        $user = Auth::user();
+        $KPB = $user->hasRole('KPB');
+        $KANWIL = $user->hasRole('PPB-W');
+        $ES1 = $user->hasRole('PPB-E1');
+        $PENGGUNA = $user->hasRole('PB');
+        $PENGELOLA = $user->hasRole('PENGELOLA');
+        $AUDITOR = $user->hasRole('AUDITOR');
+
+        // $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang',[ '6070101001',
+        // '6070201001',
+        // '6070301001',
+        // '6070401001',
+        // '6070501001',])->findOrFail($id);
         // dd($status_psp);
+        if ($KPB) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->findOrFail($id);
+        }
+        elseif ($KANWIL) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->findOrFail($id);
+        }
+        elseif ($ES1) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->findOrFail($id);
+        }
+        elseif ($PENGGUNA) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->findOrFail($id);
+        }
+        elseif ($PENGELOLA) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->findOrFail($id);
+        }
+        elseif ($AUDITOR) {
+            $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                '6070101001',
+                '6070201001',
+                '6070301001',
+                '6070401001',
+                '6070501001',
+            ])->findOrFail($id);
+        }
 
         return view('konten-wasdal.pemantauan.formulir.psp.edit', compact(['data', 'status_psp']));
     }
@@ -245,11 +615,90 @@ class FormPSPController extends Controller
     public function destroy(string $id)
     {
         try {
-            $data = [
+            $datas = [
                 'isDeletedForm1' => true,
             ];
-            PenggunaanModel::findOrFail($id)->update($data);
-            PenggunaanModel::findOrFail($id)->delete($data);
+
+            $user = Auth::user();
+            $KPB = $user->hasRole('KPB');
+            $KANWIL = $user->hasRole('PPB-W');
+            $ES1 = $user->hasRole('PPB-E1');
+            $PENGGUNA = $user->hasRole('PB');
+            $PENGELOLA = $user->hasRole('PENGELOLA');
+            $AUDITOR = $user->hasRole('AUDITOR');
+
+            if ($KPB) {
+                $data = PenggunaanModel::with(['ref_status_psp'])->where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                    '6070101001',
+                    '6070201001',
+                    '6070301001',
+                    '6070401001',
+                    '6070501001',
+                ])->findOrFail($id);
+
+                $data->update($datas);
+                $data->delete($datas);
+
+                // PenggunaanModel::findOrFail($id)->update($data);
+                // PenggunaanModel::findOrFail($id)->delete($data);
+            }
+            elseif ($KANWIL) {
+                $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                    '6070101001',
+                    '6070201001',
+                    '6070301001',
+                    '6070401001',
+                    '6070501001',
+                ])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            }
+            elseif ($ES1) {
+                $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                    '6070101001',
+                    '6070201001',
+                    '6070301001',
+                    '6070401001',
+                    '6070501001',
+                ])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            }
+            elseif ($PENGGUNA) {
+                $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                    '6070101001',
+                    '6070201001',
+                    '6070301001',
+                    '6070401001',
+                    '6070501001',
+                ])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            }
+            elseif ($PENGELOLA) {
+                $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                    '6070101001',
+                    '6070201001',
+                    '6070301001',
+                    '6070401001',
+                    '6070501001',
+                ])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            }
+            elseif ($AUDITOR) {
+                $data = PenggunaanModel::with(['ref_status_psp'])->whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereRaw("LEFT(kode_barang,1) in ('2','3','4','5','8') ")->whereNotIn('kode_barang', [
+                    '6070101001',
+                    '6070201001',
+                    '6070301001',
+                    '6070401001',
+                    '6070501001',
+                ])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            }
+            // PenggunaanModel::findOrFail($id)->update($data);
+            // PenggunaanModel::findOrFail($id)->delete($data);
             return redirect()->route('form-psp.index')->with('success', "Data berhasil dihapus!");
         } catch (Exception $e) {
             return redirect()->route('form-psp.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);

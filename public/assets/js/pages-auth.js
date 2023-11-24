@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 message: 'Please enter username'
               },
               stringLength: {
-                min: 6,
-                message: 'Username must be more than 6 characters'
+                min: 5,
+                message: 'Username must be more than 5 characters'
               }
             }
           },
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 message: 'Please enter username'
               },
               stringLength: {
-                min: 6,
-                message: 'Username must be more than 6 characters'
+                min: 5,
+                message: 'Username must be more than 5 characters'
               }
             }
           },
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           }
-          
+
         },
         plugins: {
           trigger: new FormValidation.plugins.Trigger(),

@@ -7,13 +7,13 @@ use App\Models\wasdal\referensi\ref_status_psp;
 use App\Models\wasdal\referensi\StatusPSPModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PenggunaanModel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 't_pemantauan_penggunaan';
-     protected $fillable = [
+    protected $fillable = [
         'tahun',
         'periode',
         'jenis_pemantauan',
@@ -45,17 +45,21 @@ class PenggunaanModel extends Model
         'luas_ts_db',
         'luas_digunakan',
         'persentase_penilaian_pengelola_pengguna',
-        'isCompletedForm1','isCompletedForm2','isCompletedForm3','isCompletedForm4','isCompletedForm5','isCompletedForm6','isCompletedForm7','isCompletedForm8',
-        'isDeletedForm1','isDeletedForm2','isDeletedForm3','isDeletedForm4','isDeletedForm5','isDeletedForm6','isDeletedForm7','isDeletedForm8'];
+        'isCompletedForm1', 'isCompletedForm2', 'isCompletedForm3', 'isCompletedForm4', 'isCompletedForm5', 'isCompletedForm6', 'isCompletedForm7', 'isCompletedForm8',
+        'isDeletedForm1', 'isDeletedForm2', 'isDeletedForm3', 'isDeletedForm4', 'isDeletedForm5', 'isDeletedForm6', 'isDeletedForm7', 'isDeletedForm8'
+    ];
+    protected $dates = ['deleted_at'];
+
+
+
 
 
     public function ref_status_psp()
     {
         return $this->belongsTo(ref_status_psp::class, 'status_psp', 'id');
     }
-     public function ref_kesesuaian_psp()
+    public function ref_kesesuaian_psp()
     {
         return $this->belongsTo(ref_kesesuaian_psp::class, 'kesesuaian_psp', 'id');
     }
-
 }

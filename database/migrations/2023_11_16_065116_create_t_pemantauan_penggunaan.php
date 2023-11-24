@@ -61,6 +61,7 @@ return new class extends Migration
             $table->boolean('isDeletedForm7')->nullable()->default(false);
             $table->boolean('isDeletedForm8')->nullable()->default(false);
             $table->timestamps();
+            $table->softDeletes($column = 'deleted_at', $precision = 0);
         });
     }
 

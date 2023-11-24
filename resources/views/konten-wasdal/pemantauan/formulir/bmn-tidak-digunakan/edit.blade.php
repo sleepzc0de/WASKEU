@@ -90,39 +90,15 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="kesesuaian_psp">Kesesuaian PSP</label>
+                    <label class="col-sm-2 col-form-label" for="rencana">Rencana</label>
                     <div class="col-sm-10">
-                        <select name="kesesuaian_psp" class="form-select"
-                            id="kesesuaian_psp" aria-label="Kesesuaian PSP">
-                            <option selected disabled>Pilih Kesesuaian PSP</option>
-                            @foreach ($kesesuaian_psp as $item)
-                            <option value="{{ $item->kesesuaian_psp }}" {{ old('kesesuaian_psp',$data->kesesuaian_psp) == $item->id
+                        <select data-allow-clear="true" name="rencana" class="select2 form-select form-select-lg"
+                            id="rencana" aria-label="Rencana">
+                            <option selected disabled>Pilih Rencana</option>
+                            @foreach ($rencana as $item)
+                            <option value="{{ $item->rencana }}" {{ old('rencana',$data->rencana) == $item->rencana
                                 ?
-                                'selected' : ''}}>{{$loop->iteration." - ".$item->ur_kesesuaian_psp}}</option>
-                            @endforeach
-
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="digunakan_sebagai">Digunakan Sebagai</label>
-                    <div class="col-sm-10">
-                        <input value="{{ old('digunakan_sebagai') ?? $data->digunakan_sebagai }}"
-                            name="digunakan_sebagai" type="text" class="form-control" id="digunakan_sebagai"
-                            placeholder="Digunakan Sebagai" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="rencana_alih_fungsi">Rencana Alih Fungsi</label>
-                    <div class="col-sm-10">
-                        <select data-allow-clear="true" name="rencana_alih_fungsi"
-                            class="select2 form-select form-select-lg" id="rencana_alih_fungsi"
-                            aria-label="Rencana Alih Fungsi">
-                            <option selected disabled>Pilih Referensi Barang</option>
-                            @foreach ($refKodeBarang as $item)
-                            <option value="{{ $item->NM_BRG }}" {{ old('rencana_alih_fungsi',$data->rencana_alih_fungsi)
-                                == $item->KD_BRG ?
-                                'selected' : ''}}>{{$item->KD_BRG." - ".$item->NM_BRG}}</option>
+                                'selected' : ''}}>{{$loop->iteration." - ".$item->ur_rencana}}</option>
                             @endforeach
 
                         </select>

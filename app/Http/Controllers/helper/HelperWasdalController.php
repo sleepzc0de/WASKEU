@@ -196,16 +196,212 @@ class HelperWasdalController extends Controller
 
         }
         elseif ($ES1) {
-            # code...
+            $dataToInsert = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,5) = ?',[Auth::user()->satker])->get();
+
+            foreach ($dataToInsert as $data) {
+
+                $newData = [
+                    'tahun' => $data->tahun,
+                    'periode'=>$data->periode,
+                    'jenis_pemantauan'=> $data->jenis_pemantauan,
+                    'role' => $role,
+                    'ue1' => $data->ue1,
+                    'nama_satker' => $data->nama_satker,
+                    'kode_satker' => $data->kode_satker,
+                    'nama_anak_satker' => $data->nama_anak_satker,
+                    'kode_anak_satker' => $data->kode_anak_satker,
+                    'jenis_barang' => $data->jenis_barang,
+                    'nama_barang' => $data->nama_barang,
+                    'kode_barang' => $data->kode_barang,
+                    'nup' => $data->nup,
+                    'nilai_buku'=>$data->nilai_buku,
+                    'status_psp'=>$data->status_psp,
+                    'tanggal_psp'=>$data->tanggal_psp,
+                    'nomor_psp'=>$data->nomor_psp,
+                    'ket_psp'=>$data->ket_psp,
+                    'status_sesuai_Form1'=>$data->status_sesuai_Form1,
+                    'kesesuaian_psp'=>$data->kesesuaian_psp,
+                    'digunakan_sebagai'=>$data->digunakan_sebagai,
+                    'rencana_alih_fungsi'=>$data->rencana_alih_fungsi,
+                    'status_penggunaan' => $data->status_penggunaan,
+                    'status_sesuai_Form2'=>$data->status_sesuai_Form2,
+                    'status_penggunaan'=>$data->status_penggunaan,
+                    'rencana'=>$data->rencana,
+                    'penilai_persentase_kesesuaian_sbsk'=>$data->penilai_persentase_kesesuaian_sbsk,
+                    'luas_sbsk' => $data->luas_sbsk,
+                    'luas_pengurang' => $data->luas_pengurang,
+                    'luas_ts_db' => $data->luas_ts_db,
+                    'luas_digunakan' => $data->luas_digunakan,
+                    'persentase_penilaian_pengelola_pengguna' => $data->persentase_penilaian_pengelola_pengguna,
+                    'isCompletedForm1' =>$data->isCompletedForm1,
+                    'isCompletedForm2' =>$data->isCompletedForm2,
+                    'isCompletedForm3' =>$data->isCompletedForm3,
+                    'isCompletedForm4' =>$data->isCompletedForm4,
+                    'isCompletedForm5' =>$data->isCompletedForm5,
+                    'isCompletedForm6' =>$data->isCompletedForm6,
+                    'isCompletedForm7' =>$data->isCompletedForm7,
+                    'isCompletedForm8' =>$data->isCompletedForm8,
+
+                ];
+
+                PenggunaanModel::create($newData);
+            }
         }
         elseif ($PENGGUNA) {
-            # code...
+            $dataToInsert = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->get();
+
+            foreach ($dataToInsert as $data) {
+
+                $newData = [
+                    'tahun' => $data->tahun,
+                    'periode'=>$data->periode,
+                    'jenis_pemantauan'=> $data->jenis_pemantauan,
+                    'role' => $role,
+                    'ue1' => $data->ue1,
+                    'nama_satker' => $data->nama_satker,
+                    'kode_satker' => $data->kode_satker,
+                    'nama_anak_satker' => $data->nama_anak_satker,
+                    'kode_anak_satker' => $data->kode_anak_satker,
+                    'jenis_barang' => $data->jenis_barang,
+                    'nama_barang' => $data->nama_barang,
+                    'kode_barang' => $data->kode_barang,
+                    'nup' => $data->nup,
+                    'nilai_buku'=>$data->nilai_buku,
+                    'status_psp'=>$data->status_psp,
+                    'tanggal_psp'=>$data->tanggal_psp,
+                    'nomor_psp'=>$data->nomor_psp,
+                    'ket_psp'=>$data->ket_psp,
+                    'status_sesuai_Form1'=>$data->status_sesuai_Form1,
+                    'kesesuaian_psp'=>$data->kesesuaian_psp,
+                    'digunakan_sebagai'=>$data->digunakan_sebagai,
+                    'rencana_alih_fungsi'=>$data->rencana_alih_fungsi,
+                    'status_penggunaan' => $data->status_penggunaan,
+                    'status_sesuai_Form2'=>$data->status_sesuai_Form2,
+                    'status_penggunaan'=>$data->status_penggunaan,
+                    'rencana'=>$data->rencana,
+                    'penilai_persentase_kesesuaian_sbsk'=>$data->penilai_persentase_kesesuaian_sbsk,
+                    'luas_sbsk' => $data->luas_sbsk,
+                    'luas_pengurang' => $data->luas_pengurang,
+                    'luas_ts_db' => $data->luas_ts_db,
+                    'luas_digunakan' => $data->luas_digunakan,
+                    'persentase_penilaian_pengelola_pengguna' => $data->persentase_penilaian_pengelola_pengguna,
+                    'isCompletedForm1' =>$data->isCompletedForm1,
+                    'isCompletedForm2' =>$data->isCompletedForm2,
+                    'isCompletedForm3' =>$data->isCompletedForm3,
+                    'isCompletedForm4' =>$data->isCompletedForm4,
+                    'isCompletedForm5' =>$data->isCompletedForm5,
+                    'isCompletedForm6' =>$data->isCompletedForm6,
+                    'isCompletedForm7' =>$data->isCompletedForm7,
+                    'isCompletedForm8' =>$data->isCompletedForm8,
+
+                ];
+
+                PenggunaanModel::create($newData);
+            }
         }
         elseif ($PENGELOLA) {
-            # code...
+            $dataToInsert = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->get();
+
+            foreach ($dataToInsert as $data) {
+
+                $newData = [
+                    'tahun' => $data->tahun,
+                    'periode'=>$data->periode,
+                    'jenis_pemantauan'=> $data->jenis_pemantauan,
+                    'role' => $role,
+                    'ue1' => $data->ue1,
+                    'nama_satker' => $data->nama_satker,
+                    'kode_satker' => $data->kode_satker,
+                    'nama_anak_satker' => $data->nama_anak_satker,
+                    'kode_anak_satker' => $data->kode_anak_satker,
+                    'jenis_barang' => $data->jenis_barang,
+                    'nama_barang' => $data->nama_barang,
+                    'kode_barang' => $data->kode_barang,
+                    'nup' => $data->nup,
+                    'nilai_buku'=>$data->nilai_buku,
+                    'status_psp'=>$data->status_psp,
+                    'tanggal_psp'=>$data->tanggal_psp,
+                    'nomor_psp'=>$data->nomor_psp,
+                    'ket_psp'=>$data->ket_psp,
+                    'status_sesuai_Form1'=>$data->status_sesuai_Form1,
+                    'kesesuaian_psp'=>$data->kesesuaian_psp,
+                    'digunakan_sebagai'=>$data->digunakan_sebagai,
+                    'rencana_alih_fungsi'=>$data->rencana_alih_fungsi,
+                    'status_penggunaan' => $data->status_penggunaan,
+                    'status_sesuai_Form2'=>$data->status_sesuai_Form2,
+                    'status_penggunaan'=>$data->status_penggunaan,
+                    'rencana'=>$data->rencana,
+                    'penilai_persentase_kesesuaian_sbsk'=>$data->penilai_persentase_kesesuaian_sbsk,
+                    'luas_sbsk' => $data->luas_sbsk,
+                    'luas_pengurang' => $data->luas_pengurang,
+                    'luas_ts_db' => $data->luas_ts_db,
+                    'luas_digunakan' => $data->luas_digunakan,
+                    'persentase_penilaian_pengelola_pengguna' => $data->persentase_penilaian_pengelola_pengguna,
+                    'isCompletedForm1' =>$data->isCompletedForm1,
+                    'isCompletedForm2' =>$data->isCompletedForm2,
+                    'isCompletedForm3' =>$data->isCompletedForm3,
+                    'isCompletedForm4' =>$data->isCompletedForm4,
+                    'isCompletedForm5' =>$data->isCompletedForm5,
+                    'isCompletedForm6' =>$data->isCompletedForm6,
+                    'isCompletedForm7' =>$data->isCompletedForm7,
+                    'isCompletedForm8' =>$data->isCompletedForm8,
+
+                ];
+
+                PenggunaanModel::create($newData);
+            }
         }
         elseif ($AUDITOR) {
-            # code...
+            $dataToInsert = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?',[Auth::user()->satker])->get();
+
+            foreach ($dataToInsert as $data) {
+
+                $newData = [
+                    'tahun' => $data->tahun,
+                    'periode'=>$data->periode,
+                    'jenis_pemantauan'=> $data->jenis_pemantauan,
+                    'role' => $role,
+                    'ue1' => $data->ue1,
+                    'nama_satker' => $data->nama_satker,
+                    'kode_satker' => $data->kode_satker,
+                    'nama_anak_satker' => $data->nama_anak_satker,
+                    'kode_anak_satker' => $data->kode_anak_satker,
+                    'jenis_barang' => $data->jenis_barang,
+                    'nama_barang' => $data->nama_barang,
+                    'kode_barang' => $data->kode_barang,
+                    'nup' => $data->nup,
+                    'nilai_buku'=>$data->nilai_buku,
+                    'status_psp'=>$data->status_psp,
+                    'tanggal_psp'=>$data->tanggal_psp,
+                    'nomor_psp'=>$data->nomor_psp,
+                    'ket_psp'=>$data->ket_psp,
+                    'status_sesuai_Form1'=>$data->status_sesuai_Form1,
+                    'kesesuaian_psp'=>$data->kesesuaian_psp,
+                    'digunakan_sebagai'=>$data->digunakan_sebagai,
+                    'rencana_alih_fungsi'=>$data->rencana_alih_fungsi,
+                    'status_penggunaan' => $data->status_penggunaan,
+                    'status_sesuai_Form2'=>$data->status_sesuai_Form2,
+                    'status_penggunaan'=>$data->status_penggunaan,
+                    'rencana'=>$data->rencana,
+                    'penilai_persentase_kesesuaian_sbsk'=>$data->penilai_persentase_kesesuaian_sbsk,
+                    'luas_sbsk' => $data->luas_sbsk,
+                    'luas_pengurang' => $data->luas_pengurang,
+                    'luas_ts_db' => $data->luas_ts_db,
+                    'luas_digunakan' => $data->luas_digunakan,
+                    'persentase_penilaian_pengelola_pengguna' => $data->persentase_penilaian_pengelola_pengguna,
+                    'isCompletedForm1' =>$data->isCompletedForm1,
+                    'isCompletedForm2' =>$data->isCompletedForm2,
+                    'isCompletedForm3' =>$data->isCompletedForm3,
+                    'isCompletedForm4' =>$data->isCompletedForm4,
+                    'isCompletedForm5' =>$data->isCompletedForm5,
+                    'isCompletedForm6' =>$data->isCompletedForm6,
+                    'isCompletedForm7' =>$data->isCompletedForm7,
+                    'isCompletedForm8' =>$data->isCompletedForm8,
+
+                ];
+
+                PenggunaanModel::create($newData);
+            }
         }
 
 
