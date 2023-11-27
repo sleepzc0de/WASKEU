@@ -16,37 +16,217 @@ class FormTingkatKesesuaianSBSKController extends Controller
      */
     public function index()
     {
-        $query = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH','BANGUNAN DAN GEDUNG','RUMAH NEGARA'])->select('*');
-        // dd($query);
 
-        if (request()->ajax()) {
-            // $dataTable = datatables()->of($query)
-            return datatables()->of($query)
-                ->addColumn('opsi', function ($query) {
-                    // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
-                    $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
-                    $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
-                    return '
-                    <div style="display: flex; justify-content: space-between;">
+        $user = Auth::user();
+        $KPB = $user->hasRole('KPB');
+        $KANWIL = $user->hasRole('PPB-W');
+        $ES1 = $user->hasRole('PPB-E1');
+        $PENGGUNA = $user->hasRole('PB');
+        $PENGELOLA = $user->hasRole('PENGELOLA');
+        $AUDITOR = $user->hasRole('AUDITOR');
 
-                    <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
-                    <form action="' . $hapus . '" method="POST">
-													' . @csrf_field() . '
-													' . @method_field('DELETE') . '
-													<button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
-													</form>
-                                                    </div>
-                ';
-                })
-                ->rawColumns(
-                    [
-                        'opsi'
-                    ]
-                )
-                ->addIndexColumn()
-                ->make(true);
+        if ($KPB) {
+
+
+            $query = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'KPB')->select('*');
+            // dd($query);
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
+                        $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
+                        $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'KPB')->get();
+        } elseif ($KANWIL) {
+
+            $query = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PPB-W')->select('*');
+            // dd($query);
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
+                        $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
+                        $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PPB-W')->get();
+        } elseif ($ES1) {
+
+            $query = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PPB-E1')->select('*');
+            // dd($query);
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
+                        $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
+                        $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PPB-E1')->get();
+        } elseif ($PENGGUNA) {
+
+            $query = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PB')->select('*');
+            // dd($query);
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
+                        $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
+                        $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PB')->get();
+        } elseif ($PENGELOLA) {
+
+            $query = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PENGELOLA')->select('*');
+            // dd($query);
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
+                        $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
+                        $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'PENGELOLA')->get();
+        } elseif ($AUDITOR) {
+
+            $query = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'AUDITOR ')->select('*');
+            // dd($query);
+
+            if (request()->ajax()) {
+                // $dataTable = datatables()->of($query)
+                return datatables()->of($query)
+                    ->addColumn('opsi', function ($query) {
+                        // $preview = route('form-tingkat-kesesuaian-sbsk.show', $query->id);
+                        $edit = route('form-tingkat-kesesuaian-sbsk.edit', $query->id);
+                        $hapus = route('form-tingkat-kesesuaian-sbsk.destroy', $query->id);
+                        return '
+                        <div style="display: flex; justify-content: space-between;">
+
+                        <a href="' . $edit . '" class="btn btn-outline-info">Edit</a>
+                        <form action="' . $hapus . '" method="POST">
+                                                        ' . @csrf_field() . '
+                                                        ' . @method_field('DELETE') . '
+                                                        <button type="submit" name="submit" class="btn btn-outline-danger">Hapus</button>
+                                                        </form>
+                                                        </div>
+                    ';
+                    })
+                    ->rawColumns(
+                        [
+                            'opsi'
+                        ]
+                    )
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->where('role', 'AUDITOR  ')->get();
         }
-        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH','BANGUNAN DAN GEDUNG','RUMAH NEGARA'])->get();
+
+
         return view('konten-wasdal.pemantauan.formulir.tingkat-kesesuaian-sbsk.index', compact('data'));
     }
 
@@ -56,7 +236,7 @@ class FormTingkatKesesuaianSBSKController extends Controller
         // $kesesuaian_psp = ref_kesesuaian_psp::all();
         // $refKodeBarang = ref_kode_barang_simanold::all();
         // $refJenisBarang = ref_jenis_barang_simannew::all();
-        $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH','BANGUNAN DAN GEDUNG','RUMAH NEGARA'])->get();
+        $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->get();
 
 
         return view('konten-wasdal.pemantauan.formulir.tingkat-kesesuaian-sbsk.create', compact(['data', 'kesesuaian_psp', 'refKodeBarang', 'refJenisBarang']));
@@ -95,33 +275,33 @@ class FormTingkatKesesuaianSBSKController extends Controller
 
             // inputan ue1
             // substr(Auth::user()->kode_satker,0,5);
-            if (substr($user->kode_satker,0,5) === '01501') {
+            if (substr($user->kode_satker, 0, 5) === '01501') {
                 $ue1 = 'SEKRETARIAT JENDERAL';
-            } elseif (substr($user->kode_satker,0,5) === '01502') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01502') {
                 $ue1 = 'INSPEKTORAT JENDERAL';
-            } elseif (substr($user->kode_satker,0,5) === '01503') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01503') {
                 $ue1 = 'DIREKTORAT JENDERAL ANGGARAN';
-            } elseif (substr($user->kode_satker,0,5) === '01504') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01504') {
                 $ue1 = 'DIREKTORAT JENDERAL PAJAK';
-            } elseif (substr($user->kode_satker,0,5) === '01505') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01505') {
                 $ue1 = 'DIREKTORAT JENDERAL BEA DAN CUKAI';
-            } elseif (substr($user->kode_satker,0,5) === '01506') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01506') {
                 $ue1 = 'DIREKTORAT JENDERAL PERIMBANGAN KEUANGAN';
-            } elseif (substr($user->kode_satker,0,5) === '01507') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01507') {
                 $ue1 = 'DITJEN PENGELOLAAN PEMBIAYAAN DAN RISIKO';
-            } elseif (substr($user->kode_satker,0,5) === '01508') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01508') {
                 $ue1 = 'DIREKTORAT JENDERAL PERBENDAHARAAN';
-            } elseif (substr($user->kode_satker,0,5) === '01509') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01509') {
                 $ue1 = 'DIREKTORAT JENDERAL KEKAYAAN NEGARA';
-            } elseif (substr($user->kode_satker,0,5) === '01511') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01511') {
                 $ue1 = 'BADAN PENDIDIKAN DAN PELATIHAN KEUANGAN';
-            } elseif (substr($user->kode_satker,0,5) === '01512') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01512') {
                 $ue1 = 'BADAN KEBIJAKAN FISKAL';
-            } elseif (substr($user->kode_satker,0,5) === '01513') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01513') {
                 $ue1 = 'LEMBAGA NATIONAL SINGLE WINDOW';
-            } elseif (substr($user->kode_satker,0,5) === '01599') {
+            } elseif (substr($user->kode_satker, 0, 5) === '01599') {
                 $ue1 = 'AUDITOR';
-            }else {
+            } else {
                 $ue1 = 'KEMENTERIAN KEUANGAN';
             }
 
@@ -166,11 +346,36 @@ class FormTingkatKesesuaianSBSKController extends Controller
 
         // $kesesuaian_psp = ref_kesesuaian_psp::all();
         $penilai_kesesuaian_sbsk = ref_penilai_persentase_tingkat_kesesuaian_sbsk::all();
-        $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->whereIn('jenis_barang', ['TANAH','BANGUNAN DAN GEDUNG','RUMAH NEGARA'])->findOrFail($id);
+
+        $user = Auth::user();
+        $KPB = $user->hasRole('KPB');
+        $KANWIL = $user->hasRole('PPB-W');
+        $ES1 = $user->hasRole('PPB-E1');
+        $PENGGUNA = $user->hasRole('PB');
+        $PENGELOLA = $user->hasRole('PENGELOLA');
+        $AUDITOR = $user->hasRole('AUDITOR');
+
+
+
+
+        if ($KPB) {
+            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'PPB-W')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+        } elseif ($KANWIL) {
+
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+        } elseif ($ES1) {
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,) 5= ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+        } elseif ($PENGGUNA) {
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+        } elseif ($PENGELOLA) {
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+        } elseif ($AUDITOR) {
+            $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+        }
         // $refKodeBarang = ref_kode_barang_simanold::whereRaw("LEFT(KD_BRG,1)=LEFT('{$data->kode_barang}',1)")->get();
 
 
-        return view('konten-wasdal.pemantauan.formulir.tingkat-kesesuaian-sbsk.edit', compact(['data','penilai_kesesuaian_sbsk']));
+        return view('konten-wasdal.pemantauan.formulir.tingkat-kesesuaian-sbsk.edit', compact(['data', 'penilai_kesesuaian_sbsk']));
     }
 
     public function update(Request $request, string $id)
@@ -187,7 +392,7 @@ class FormTingkatKesesuaianSBSKController extends Controller
 
 
             // LOGIC PERHITUNGAN PERSENTASE
-            $persentase_penilaian_pengelola_pengguna = ((floatval($request->luas_digunakan) + floatval($request->luas_pengurang))/$request->luas_ts_db)*100;
+            $persentase_penilaian_pengelola_pengguna = ((floatval($request->luas_digunakan) + floatval($request->luas_pengurang)) / $request->luas_ts_db) * 100;
 
             // TAMPUNGAN REQUEST DATA DARI FORM
             $data = [
@@ -197,7 +402,7 @@ class FormTingkatKesesuaianSBSKController extends Controller
                 'luas_pengurang' => floatval($request->luas_pengurang),
                 'luas_ts_db' => $request->luas_ts_db,
                 'luas_digunakan' => floatval($request->luas_digunakan),
-                'persentase_penilaian_pengelola_pengguna'=> $persentase_penilaian_pengelola_pengguna,
+                'persentase_penilaian_pengelola_pengguna' => $persentase_penilaian_pengelola_pengguna,
                 'isCompletedForm4' => true
             ];
 
@@ -211,15 +416,51 @@ class FormTingkatKesesuaianSBSKController extends Controller
     public function destroy(string $id)
     {
         try {
-            $data = [
-                'isDeletedForm2' => true,
+            $datas = [
+                'isDeletedForm4' => true,
             ];
-            PenggunaanModel::findOrFail($id)->update($data);
-            PenggunaanModel::findOrFail($id)->delete($data);
+
+            $user = Auth::user();
+            $KPB = $user->hasRole('KPB');
+            $KANWIL = $user->hasRole('PPB-W');
+            $ES1 = $user->hasRole('PPB-E1');
+            $PENGGUNA = $user->hasRole('PB');
+            $PENGELOLA = $user->hasRole('PENGELOLA');
+            $AUDITOR = $user->hasRole('AUDITOR');
+
+
+            if ($KPB) {
+                $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'PPB-W')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            } elseif ($KANWIL) {
+
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            } elseif ($ES1) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,) 5= ?', [Auth::user()->satker])->where('role', 'PPB-E1')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            } elseif ($PENGGUNA) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            } elseif ($PENGELOLA) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            } elseif ($AUDITOR) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+                $data->update($datas);
+                $data->delete($datas);
+            }
+
+            // PenggunaanModel::findOrFail($id)->update($data);
+            // PenggunaanModel::findOrFail($id)->delete($data);
             return redirect()->route('form-tingkat-kesesuaian-sbsk.index')->with('success', "Data berhasil dihapus!");
         } catch (Exception $e) {
             return redirect()->route('form-tingkat-kesesuaian-sbsk.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
         }
     }
-
 }

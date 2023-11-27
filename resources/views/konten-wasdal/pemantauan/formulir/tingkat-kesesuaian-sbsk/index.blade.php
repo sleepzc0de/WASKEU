@@ -100,7 +100,12 @@ $(function () {
                 { data: "nama_barang", name: "nama_barang" },
                  { data: "nup", name: "nup" },
                   { data: "nilai_buku", name: "nilai_buku" },
-                  { data: "rencana", name: "rencana" },
+                  { data: "penilai_persentase_kesesuaian_sbsk", name: "penilai_persentase_kesesuaian_sbsk" },
+                  { data: "luas_sbsk", name: "luas_sbsk" },
+                  { data: "luas_pengurang", name: "luas_pengurang" },
+                  { data: "luas_ts_db", name: "luas_ts_db" },
+                  { data: "luas_digunakan", name: "luas_digunakan" },
+                  { data: "persentase_penilaian_pengelola_pengguna", name: "persentase_penilaian_pengelola_pengguna" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -254,7 +259,7 @@ $(function () {
 
 <div class="alert alert-solid-success d-flex align-items-center" role="alert">
     <i class="mdi mdi-check-circle-outline me-2"></i>
-    Tidak Mempunyai Data BMN yang Status Penggunaannya Tidak Digunakan
+    Tidak Mempunyai Data BMN Untuk Tingkat Kesesuaian SBSK
 </div>
 
 @else
@@ -290,7 +295,12 @@ $(function () {
                     <th>NAMA BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
-                    <th>RENCANA</th>
+                    <th>PENILAI PERSENTASE</th>
+                  <th>LUAS SBSK</th>
+                    <th>LUAS PENGURANG</th>
+                    <th>LUAS TANAH SELURUHNYA/LUAS DASAR BANGUNAN</th>
+                    <th>LUAS DIGUNAKAN</th>
+                    <th>PERSENTASE PENILAIAN PENGELOLA/PENGGUNA</th>
                     <th>AKSI</th>
                 </tr>
             </thead>

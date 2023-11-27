@@ -30,7 +30,7 @@ class FormKesesuaianPSPController extends Controller
         $AUDITOR = $user->hasRole('AUDITOR');
 
         if ($KPB) {
-            $query = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->select('*');
+            $query = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->where('role', 'KPB')->select('*');
             // dd($query);
 
             if (request()->ajax()) {
@@ -265,7 +265,7 @@ class FormKesesuaianPSPController extends Controller
         $AUDITOR = $user->hasRole('AUDITOR');
 
         if ($KPB) {
-            $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->get();
+            $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->where('status_psp', 'SUDAH_PSP')->get();
         }
         elseif ($KANWIL) {
             $data = PenggunaanModel::with(['ref_kesesuaian_psp'])->whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->where('status_psp', 'SUDAH_PSP')->get();
@@ -403,7 +403,7 @@ class FormKesesuaianPSPController extends Controller
 
 
         if ($KPB) {
-            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->findOrFail($id);
+            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->where('status_psp', 'SUDAH_PSP')->findOrFail($id);
         }
         elseif ($KANWIL) {
 
@@ -477,7 +477,7 @@ class FormKesesuaianPSPController extends Controller
 
 
             if ($KPB) {
-                $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('status_psp', 'SUDAH_PSP')->findOrFail($id);
+                $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->where('status_psp', 'SUDAH_PSP')->findOrFail($id);
                  $data->update($datas);
                 $data->delete($datas);
 

@@ -96,7 +96,7 @@
                             id="penilai_persentase_kesesuaian_sbsk" aria-label="Penilai Persentase Tingkat Kesesuaian dengan SBSK">
                             <option selected disabled>Pilih Penilai Persentase Tingkat Kesesuaian dengan SBSK</option>
                             @foreach ($penilai_kesesuaian_sbsk as $item)
-                            <option value="{{ $item->penilai_persentase_kesesuaian_sbsk }}" {{ old('penilai_persentase_kesesuaian_sbsk',$data->penilai_persentase_kesesuaian_sbsk) == $item->id
+                            <option value="{{ $item->penilai_persentase_kesesuaian_sbsk }}" {{ old('penilai_persentase_kesesuaian_sbsk',$data->penilai_persentase_kesesuaian_sbsk) == $item->penilai_persentase_kesesuaian_sbsk
                                 ?
                                 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_penilai_persentase_kesesuaian_sbsk}}</option>
                             @endforeach
