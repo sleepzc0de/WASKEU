@@ -45,6 +45,17 @@ class PenggunaanModel extends Model
         'luas_ts_db',
         'luas_digunakan',
         'persentase_penilaian_pengelola_pengguna',
+        // PENGGUNAAN SEMENTARA
+        'dok_rp4',
+        'ket_dok_rp4',
+        'status_persetujuan',
+        'bentuk_persetujuan',
+        'ket_persetujuan',
+        'status_pelaksanaan',
+        'ket_pelaksanaan',
+        'bentuk_rp4',
+        'status_sesuai_Form5',
+        // END PENGGUNAAN SEMENTARA
         'isCompletedForm1', 'isCompletedForm2', 'isCompletedForm3', 'isCompletedForm4', 'isCompletedForm5', 'isCompletedForm6', 'isCompletedForm7', 'isCompletedForm8',
         'isDeletedForm1', 'isDeletedForm2', 'isDeletedForm3', 'isDeletedForm4', 'isDeletedForm5', 'isDeletedForm6', 'isDeletedForm7', 'isDeletedForm8'
     ];

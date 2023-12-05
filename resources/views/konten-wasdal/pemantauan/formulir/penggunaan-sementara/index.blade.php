@@ -53,7 +53,7 @@ $(function () {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Loading...'
             },
             serverSide: true,
-            ajax: "{{ route('form-tingkat-kesesuaian-sbsk.index') }}",
+            ajax: "{{ route('form-penggunaan-sementara.index') }}",
             autoWidth: true,
             scrollY: 200,
             scrollX: true,
@@ -100,12 +100,14 @@ $(function () {
                 { data: "nama_barang", name: "nama_barang" },
                  { data: "nup", name: "nup" },
                   { data: "nilai_buku", name: "nilai_buku" },
-                  { data: "penilai_persentase_kesesuaian_sbsk", name: "penilai_persentase_kesesuaian_sbsk" },
-                  { data: "luas_sbsk", name: "luas_sbsk" },
-                  { data: "luas_pengurang", name: "luas_pengurang" },
-                  { data: "luas_ts_db", name: "luas_ts_db" },
-                  { data: "luas_digunakan", name: "luas_digunakan" },
-                  { data: "persentase_penilaian_pengelola_pengguna", name: "persentase_penilaian_pengelola_pengguna" },
+                  { data: "ket_dok_rp4", name: "ket_dok_rp4" },
+                  { data: "dok_rp4", name: "dok_rp4" },
+                  { data: "status_persetujuan", name: "status_persetujuan" },
+                  { data: "bentuk_persetujuan", name: "bentuk_persetujuan" },
+                  { data: "ket_persetujuan", name: "ket_persetujuan" },
+                  { data: "status_pelaksanaan", name: "status_pelaksanaan" },
+                  { data: "ket_pelaksanaan", name: "ket_pelaksanaan" },
+                  { data: "bentuk_rp4", name: "bentuk_rp4" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -234,7 +236,7 @@ $(function () {
 
         });
         $("div.head-label").html(
-            '<h5 class="card-title mb-0">Penggunaan - Tingkat Kesesuaian SBSK</h5>'
+            '<h5 class="card-title mb-0">Penggunaan - Penggunaan Sementara</h5>'
 
         );
     }
@@ -259,19 +261,13 @@ $(function () {
 
 <div class="alert alert-solid-success d-flex align-items-center" role="alert">
     <i class="mdi mdi-check-circle-outline me-2"></i>
-    Tidak Mempunyai Data BMN Untuk Tingkat Kesesuaian SBSK
+    Tidak Mempunyai Data BMN Untuk Status RP4 Penggunaan - Penggunaan BMN Sementara
 </div>
 
 @else
 
 <div class="card">
-
-
-
     <div class="card-datatable table-responsive pt-0">
-
-
-
         <div class="pt-3 px-5">
              @include('layouts.wasdal.session_notif')
             {{-- <a href="{{ route('form-kesesuaian-psp.create') }}" class="btn btn-label-primary btn-fab demo">
@@ -295,12 +291,14 @@ $(function () {
                     <th>NAMA BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
-                    <th>PENILAI PERSENTASE</th>
-                  <th>LUAS SBSK</th>
-                    <th>LUAS PENGURANG</th>
-                    <th>LUAS TANAH SELURUHNYA/LUAS DASAR BANGUNAN</th>
-                    <th>LUAS DIGUNAKAN</th>
-                    <th>PERSENTASE PENILAIAN PENGELOLA/PENGGUNA</th>
+                    <th>DOKUMEN RP4</th>
+                    <th>KETERANGAN DOKUMEN RP4</th>
+                    <th>STATUS PERSETUJUAN</th>
+                    <th>BENTUK PERSETUJUAN</th>
+                    <th>KETERANGAN PERSETUJUAN</th>
+                    <th>STATUS PELAKSANAAN</th>
+                    <th>KETERANGAN PELAKSANAAN</th>
+                    <th>BENTUK RP4</th>
                     <th>AKSI</th>
                 </tr>
             </thead>

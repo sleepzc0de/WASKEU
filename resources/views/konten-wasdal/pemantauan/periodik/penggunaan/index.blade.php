@@ -49,7 +49,7 @@
                         processing: '<i class="fa fa-spinner fa-spin"></i> Loading...'
                     },
                     serverSide: true,
-                    ajax: "{{ route('periodik-penggunaan.index') }}",
+                    ajax: "{{ route('pemantauan-penggunaan.index') }}",
                     autoWidth: true,
                     scrollY: 200,
                     scrollX: true,
@@ -263,34 +263,34 @@
         });
     </script>
 
-<script>
-    $(document).ready(function() {
-        $('#generateForm').submit(function(e) {
-            e.preventDefault(); // Prevent default form submission
-            $('#generateBtn').prop('disabled', true); // Disable the button
-            $('#loadingIndicator').css('visibility', 'visible'); // Show loading indicator
-            // Perform form submission via AJAX
-            $.ajax({
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    // Hide loading indicator, enable button, show success notification, and refresh the table
-                    $('#loadingIndicator').css('visibility', 'hidden');
-                    $('#generateBtn').prop('disabled', false);
-                    location.reload(); // Refresh the page to update the table data
-                },
-                error: function(error) {
-                    // Handle errors here
-                    console.error('Error:', error);
-                    $('#loadingIndicator').css('visibility', 'hidden');
-                    $('#generateBtn').prop('disabled', false);
-                    // Show error notification if needed
-                }
+    <script>
+        $(document).ready(function() {
+            $('#generateForm').submit(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                $('#generateBtn').prop('disabled', true); // Disable the button
+                $('#loadingIndicator').css('visibility', 'visible'); // Show loading indicator
+                // Perform form submission via AJAX
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Hide loading indicator, enable button, show success notification, and refresh the table
+                        $('#loadingIndicator').css('visibility', 'hidden');
+                        $('#generateBtn').prop('disabled', false);
+                        location.reload(); // Refresh the page to update the table data
+                    },
+                    error: function(error) {
+                        // Handle errors here
+                        console.error('Error:', error);
+                        $('#loadingIndicator').css('visibility', 'hidden');
+                        $('#generateBtn').prop('disabled', false);
+                        // Show error notification if needed
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 @endsection
 
 
@@ -394,7 +394,7 @@
                                                     </div>
                                                     <div class="add-btn">
                                                         <a href="{{ route('form-bmn-tidak-digunakan.index') }}"><button
-                                                            class="btn btn-primary btn-sm">Wasdal</button></a>
+                                                                class="btn btn-primary btn-sm">Wasdal</button></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -417,7 +417,7 @@
                                                     </div>
                                                     <div class="add-btn">
                                                         <a href="{{ route('form-tingkat-kesesuaian-sbsk.index') }}"><button
-                                                            class="btn btn-primary btn-sm">Wasdal</button></a>
+                                                                class="btn btn-primary btn-sm">Wasdal</button></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -439,7 +439,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
-                                                        <button class="btn btn-primary btn-sm">Wasdal</button>
+                                                        <a href="{{ route('form-penggunaan-sementara.index') }}"><button
+                                                            class="btn btn-primary btn-sm">Wasdal</button></a>
+
                                                     </div>
                                                 </div>
                                             </div>

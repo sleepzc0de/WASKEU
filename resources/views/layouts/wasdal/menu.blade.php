@@ -42,130 +42,59 @@
                     </ul>
                   </li>
 
-                  <!-- Pemantauan -->
-                  <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                      <i class="menu-icon tf-icons mdi mdi-apps"></i>
-                      <div data-i18n="Pemantauan">Pemantauan</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                          <i class="menu-icon tf-icons mdi mdi-cart-outline"></i>
-                          <div data-i18n="Periodik">Periodik</div>
+                    <!-- Apps -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                          <i class="menu-icon tf-icons mdi mdi-apps"></i>
+                          <div data-i18n="Pemantauan">Pemantauan</div>
                         </a>
                         <ul class="menu-sub">
-                          <li class="menu-item">
-                            <a href="{{route('periodik-penggunaan.index')}}" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Penggunaan">Penggunaan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pemanfaatan">Pemanfaatan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pemindahtanganan">Pemindahtanganan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Penatausahaan">Penatausahaan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pengamanan">Pengamanan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pemeliharaan">Pemeliharaan</div>
-                            </a>
-                          </li>
-                          {{-- <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Products">Products</div>
-                            </a>
-                            <ul class="menu-sub">
+                            {{-- <li class="menu-item">
+                                <a href="app-email.html" class="menu-link">
+                                  <i class="menu-icon tf-icons mdi mdi-email-outline"></i>
+                                  <div data-i18n="Email">Email</div>
+                                </a>
+                              </li> --}}
                               <li class="menu-item">
-                                <a href="app-ecommerce-product-list.html" class="menu-link">
+                                <a href="{{route('pemantauan-penggunaan.index')}}" class="menu-link">
                                   <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                                  <div data-i18n="Product list">Product list</div>
+                                  <div data-i18n="Penggunaan">Penggunaan</div>
                                 </a>
                               </li>
-                              <li class="menu-item">
-                                <a href="app-ecommerce-product-add.html" class="menu-link">
+                               <li class="menu-item">
+                                <a href="app-ecommerce-dashboard.html" class="menu-link">
                                   <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                                  <div data-i18n="Add Product">Add Product</div>
+                                  <div data-i18n="Pemanfaatan">Pemanfaatan</div>
                                 </a>
                               </li>
-                              <li class="menu-item">
-                                <a href="app-ecommerce-category-list.html" class="menu-link">
+                               <li class="menu-item">
+                                <a href="app-ecommerce-dashboard.html" class="menu-link">
                                   <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                                  <div data-i18n="Category list">Category List</div>
+                                  <div data-i18n="Pemindahtanganan">Pemindahtanganan</div>
                                 </a>
                               </li>
-                            </ul>
-                          </li> --}}
-                        </ul>
-                      </li>
-                      <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                          <i class="menu-icon tf-icons mdi mdi-cart-outline"></i>
-                          <div data-i18n="Insidentil">Insidentil</div>
-                        </a>
-                        <ul class="menu-sub">
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Penggunaan">Penggunaan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pemanfaatan">Pemanfaatan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pemindahtanganan">Pemindahtanganan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Penatausahaan">Penatausahaan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pengamanan">Pengamanan</div>
-                            </a>
-                          </li>
-                           <li class="menu-item">
-                            <a href="app-ecommerce-dashboard.html" class="menu-link">
-                              <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
-                              <div data-i18n="Pemeliharaan">Pemeliharaan</div>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
+                               <li class="menu-item">
+                                <a href="app-ecommerce-dashboard.html" class="menu-link">
+                                  <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
+                                  <div data-i18n="Penatausahaan">Penatausahaan</div>
+                                </a>
+                              </li>
+                               <li class="menu-item">
+                                <a href="app-ecommerce-dashboard.html" class="menu-link">
+                                  <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
+                                  <div data-i18n="Pengamanan">Pengamanan</div>
+                                </a>
+                              </li>
+                               <li class="menu-item">
+                                <a href="app-ecommerce-dashboard.html" class="menu-link">
+                                  <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
+                                  <div data-i18n="Pemeliharaan">Pemeliharaan</div>
+                                </a>
+                              </li>
 
-                    </ul>
-                  </li>
+
+                        </ul>
+                      </li>
 
                   {{-- <!-- Layouts -->
                   <li class="menu-item">

@@ -359,7 +359,7 @@ class FormTingkatKesesuaianSBSKController extends Controller
 
 
         if ($KPB) {
-            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'PPB-W')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
+            $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);
         } elseif ($KANWIL) {
 
             $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->whereIn('jenis_barang', ['TANAH', 'BANGUNAN DAN GEDUNG', 'RUMAH NEGARA'])->findOrFail($id);

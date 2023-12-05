@@ -9,6 +9,7 @@ use App\Models\wasdal\siman\Simanv2Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HelperWasdalController extends Controller
 {
@@ -110,9 +111,13 @@ class HelperWasdalController extends Controller
         $PENGELOLA = $user->hasRole('PENGELOLA');
         $AUDITOR = $user->hasRole('AUDITOR');
 
-        if ($KPB) {
-            $dataToInsert = Simanv2Model::where('kd_satker_6digit', Auth::user()->satker)->get();
+        // $dataToInsert = Simanv2Model::leftJoin('rp4_penggunaan','SIMAN_V2_ALL.unik','=','rp4_penggunaan.rp4_uniq')->whereRaw('LEFT(kd_satker,3) = 015')->take(10)->get();
+        // $dataToInsert = DB::table('SIMAN_V2_ALL AS a')->leftJoin('rp4_penggunaan  AS b','a.unik','=','b.rp4_uniq')->leftJoin('rp4_pemanfaatan AS c','b.rp4_uniq','=','c.rp4_uniq')->leftJoin('rp4_pemindahtanganan AS d','c.rp4_uniq','=','d.rp4_uniq')->whereRaw('LEFT(a.kd_satker,3)=015')->where('c.rp4_uniq','015010400117109000KD40101010012')->take(1)->get();
 
+        if ($KPB) {
+            // $dataToInsert = Simanv2Model::leftJoin('rp4_penggunaan','SIMAN_V2_ALL.unik','=','rp4_penggunaan.rp4_uniq')->where('kd_satker_6digit', Auth::user()->satker)->get();
+
+            $dataToInsert = DB::table('SIMAN_V2_ALL AS a')->leftJoin('rp4_penggunaan  AS b','a.unik','=','b.rp4_uniq')->leftJoin('rp4_pemanfaatan AS c','b.rp4_uniq','=','c.rp4_uniq')->leftJoin('rp4_pemindahtanganan AS d','c.rp4_uniq','=','d.rp4_uniq')->where('kd_satker_6digit', Auth::user()->satker)->get();
             foreach ($dataToInsert as $data) {
 
                 $newData = [
@@ -135,6 +140,7 @@ class HelperWasdalController extends Controller
                       'status_penggunaan' => $data->kd_status,
                       'luas_sbsk' => $data->sbsk,
                       'luas_ts_db' => $data->luas,
+                      'bentuk_rp4' => $data->rp4_bentuk,
 
                 ];
 

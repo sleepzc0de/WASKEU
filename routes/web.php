@@ -9,6 +9,7 @@ use App\Http\Controllers\wasdal\pemantauan\form\FormPenggunaanSementaraControlle
 use App\Http\Controllers\wasdal\pemantauan\form\FormPSPController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormTingkatKesesuaianSBSKController;
 use App\Http\Controllers\wasdal\pemantauan\PemantauanPeriodikController;
+use App\Http\Controllers\wasdal\pemantauan\PenggunaanController;
 use App\Http\Controllers\wasdal\pemantauan\periodik\PemantauanPemanfaatanPeriodikController;
 use App\Http\Controllers\wasdal\pemantauan\periodik\PemantauanPenggunaanPeriodikController;
 use Illuminate\Support\Facades\Route;
@@ -23,10 +24,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     return view('layouts.wasdal.master');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,15 +40,16 @@ Route::middleware('auth')->group(function () {
 
     // TIM DEVELOPMENT
 
-    Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('developer.wasdal');
+
 });
+Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('developer.wasdal');
 
 
 //  Route::resource('pemantauan-periodik-pemanfaatan', PemantauanPemanfaatanPeriodikController::class);
 
 //  PEMANTAUAN PENGGUNAAN
  Route::prefix('pemantauan-penggunaan')->middleware('auth')->group(function () {
-     Route::resource('periodik-penggunaan', PemantauanPenggunaanPeriodikController::class);
+     Route::resource('pemantauan-penggunaan', PenggunaanController::class);
      Route::resource('form-psp', FormPSPController::class);
      Route::resource('form-kesesuaian-psp', FormKesesuaianPSPController::class);
      Route::resource('form-bmn-tidak-digunakan', FormBMNTidakDigunakanController::class );

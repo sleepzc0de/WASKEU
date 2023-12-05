@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\wasdal;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {

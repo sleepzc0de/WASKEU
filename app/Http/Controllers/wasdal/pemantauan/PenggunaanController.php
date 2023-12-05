@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\wasdal\pemantauan\periodik;
+namespace App\Http\Controllers\wasdal\pemantauan;
 
 use App\Http\Controllers\Controller;
 use App\Models\wasdal\pemantauan\PenggunaanModel;
@@ -12,7 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PemantauanPenggunaanPeriodikController extends Controller
+class PenggunaanController extends Controller
 {
     public function index()
     {

@@ -44,6 +44,15 @@ return new class extends Migration
             $table->float('luas_ts_db')->nullable()->default(0);
             $table->float('luas_digunakan')->nullable()->default(0);
             $table->float('persentase_penilaian_pengelola_pengguna')->nullable()->default(0);
+            $table->string('dok_rp4')->nullable()->default('KOSONG');
+            $table->text('ket_dok_rp4')->nullable()->default('KOSONG');
+            $table->string('status_persetujuan')->nullable()->default('KOSONG');
+            $table->string('bentuk_persetujuan')->nullable()->default('KOSONG');
+            $table->text('ket_persetujuan')->nullable()->default('KOSONG');
+            $table->string('status_pelaksanaan')->nullable()->default('KOSONG');
+            $table->text('ket_pelaksanaan')->nullable()->default('KOSONG');
+            $table->text('bentuk_rp4')->nullable()->default('KOSONG');
+            $table->string('status_sesuai_Form5')->nullable()->default('KOSONG');
             $table->boolean('isCompletedForm1')->nullable()->default(false);
             $table->boolean('isCompletedForm2')->nullable()->default(false);
             $table->boolean('isCompletedForm3')->nullable()->default(false);

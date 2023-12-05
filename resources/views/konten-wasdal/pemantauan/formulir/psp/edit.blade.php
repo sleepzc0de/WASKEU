@@ -50,7 +50,7 @@
                         <select data-allow-clear="true" name="status_psp" class="select2 form-select form-select-lg" id="status_psp" aria-label="Status PSP">
                             <option selected disabled>Pilih Status PSP</option>
                            	@foreach ($status_psp as $item)
-												<option value="{{ $item->status_psp }}" {{ old('status_psp',$data->status_psp) == $item->id ? 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_status_psp}}</option>
+												<option value="{{ $item->status_psp }}" {{ old('status_psp',$data->status_psp) == $item->status_psp ? 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_status_psp}}</option>
 							@endforeach
 
                         </select>
