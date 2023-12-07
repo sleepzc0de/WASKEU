@@ -53,7 +53,7 @@ $(function () {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Loading...'
             },
             serverSide: true,
-            ajax: "{{ route('form-operasi-pihak-lain.index') }}",
+            ajax: "{{ route('form-tindak-lanjut-bpk.index') }}",
             autoWidth: true,
             scrollY: 200,
             scrollX: true,
@@ -100,15 +100,10 @@ $(function () {
                 { data: "nama_barang", name: "nama_barang" },
                  { data: "nup", name: "nup" },
                   { data: "nilai_buku", name: "nilai_buku" },
-                  { data: "ket_dok_rp4", name: "ket_dok_rp4" },
-                  { data: "dok_rp4", name: "dok_rp4" },
-                  { data: "status_persetujuan", name: "status_persetujuan" },
-                  { data: "bentuk_persetujuan", name: "bentuk_persetujuan" },
-                  { data: "ket_persetujuan", name: "ket_persetujuan" },
-                  { data: "status_pelaksanaan", name: "status_pelaksanaan" },
-                  { data: "ket_pelaksanaan", name: "ket_pelaksanaan" },
-                  { data: "bentuk_rp4_penggunaan", name: "bentuk_rp4_penggunaan" },
-                  { data: "status_sesuai_Form5", name: "status_sesuai_Form5" },
+                  { data: "ket_hasil_temuan_bpk", name: "ket_hasil_temuan_bpk" },
+                  { data: "tindak_lanjut_bpk", name: "tindak_lanjut_bpk" },
+                  { data: "ket_tinjut_bpk", name: "ket_tinjut_bpk" },
+                  { data: "status_sesuai_Form7", name: "status_sesuai_Form7" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -237,7 +232,7 @@ $(function () {
 
         });
         $("div.head-label").html(
-            '<h5 class="card-title mb-0">Penggunaan - Penggunaan Sementara</h5>'
+            '<h5 class="card-title mb-0">Penggunaan - Tindak Lanjut BMN Temuan BPK</h5>'
 
         );
     }
@@ -259,28 +254,28 @@ $(function () {
 <!-- DataTable with Buttons -->
 
 @if (count($data) <= 0)
-
 <div class="py-2">
-    <a href="{{ route('form-operasi-pihak-lain.create') }}" class="btn btn-label-primary btn-fab demo">
+    <a href="{{ route('form-tindak-lanjut-bpk.create') }}" class="btn btn-label-primary btn-fab demo">
         <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
     </a>
 </div>
 
 <div class="alert alert-solid-success d-flex align-items-center" role="alert">
     <i class="mdi mdi-check-circle-outline me-2"></i>
-    Tidak Mempunyai Data BMN Untuk Status RP4 Penggunaan - Dioperasikan Pihak Lain
+    Tidak Mempunyai Data Untuk Tindak Lanjut Temuan BPK
 </div>
 
 @else
 
 <div class="card">
+
     <div class="card-datatable table-responsive pt-0">
+
         <div class="pt-3 px-5">
              @include('layouts.wasdal.session_notif')
-             <a href="{{ route('form-operasi-pihak-lain.create') }}" class="btn btn-label-primary btn-fab demo">
+             <a href="{{ route('form-tindak-lanjut-bpk.create') }}" class="btn btn-label-primary btn-fab demo">
                 <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
             </a>
-
 
         </div>
 
@@ -299,14 +294,9 @@ $(function () {
                     <th>NAMA BARANG</th>
                     <th>NUP</th>
                     <th>NILAI BUKU</th>
-                    <th>DOKUMEN RP4</th>
-                    <th>KETERANGAN DOKUMEN RP4</th>
-                    <th>STATUS PERSETUJUAN</th>
-                    <th>BENTUK PERSETUJUAN</th>
-                    <th>KETERANGAN PERSETUJUAN</th>
-                    <th>STATUS PELAKSANAAN</th>
-                    <th>KETERANGAN PELAKSANAAN</th>
-                    <th>BENTUK RP4</th>
+                    <th>HASIL TEMUAN</th>
+                    <th>STATUS TINDAK LANJUT</th>
+                    <th>KETERANGAN TINDAK LANJUT TEMUAN</th>
                     <th>STATUS SESUAI</th>
                     <th>AKSI</th>
                 </tr>

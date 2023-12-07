@@ -8,6 +8,8 @@ use App\Http\Controllers\wasdal\pemantauan\form\FormKesesuaianPSPController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormPenggunaanDioperasikanPihakLainController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormPenggunaanSementaraController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormPSPController;
+use App\Http\Controllers\wasdal\pemantauan\form\FormTindakLanjutTemuanPenggunaanBMNApipController;
+use App\Http\Controllers\wasdal\pemantauan\form\FormTindakLanjutTemuanPenggunaanBMNBpkController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormTingkatKesesuaianSBSKController;
 use App\Http\Controllers\wasdal\pemantauan\PemantauanPeriodikController;
 use App\Http\Controllers\wasdal\pemantauan\PenggunaanController;
@@ -57,6 +59,8 @@ Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('devel
      Route::resource('form-tingkat-kesesuaian-sbsk', FormTingkatKesesuaianSBSKController::class );
      Route::resource('form-penggunaan-sementara', FormPenggunaanSementaraController::class );
      Route::resource('form-operasi-pihak-lain', FormPenggunaanDioperasikanPihakLainController::class );
+     Route::resource('form-tindak-lanjut-apip', FormTindakLanjutTemuanPenggunaanBMNApipController::class );
+     Route::resource('form-tindak-lanjut-bpk', FormTindakLanjutTemuanPenggunaanBMNBpkController::class );
 
      // REFERENSI PEMANTAUAN PENGGUNAAN
 

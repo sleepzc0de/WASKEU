@@ -45,6 +45,7 @@ class PenggunaanModel extends Model
         'luas_ts_db',
         'luas_digunakan',
         'persentase_penilaian_pengelola_pengguna',
+        'status_sesuai_Form3',
         // PENGGUNAAN SEMENTARA
         'dok_rp4',
         'ket_dok_rp4',
@@ -53,12 +54,25 @@ class PenggunaanModel extends Model
         'ket_persetujuan',
         'status_pelaksanaan',
         'ket_pelaksanaan',
+        'status_sesuai_Form4',
         'bentuk_rp4_penggunaan',
         'bentuk_rp4_pemanfaatan',
         'bentuk_rp4_pemindahtanganan',
         'bentuk_rp4_penghapusan',
         'status_sesuai_Form5',
         // END PENGGUNAAN SEMENTARA
+        // TINJUT TEMUAN APIP
+        'ket_hasil_temuan_apip',
+        'tindak_lanjut_apip',
+        'ket_tinjut_apip',
+        'status_sesuai_Form7',
+        // END TINJUT TEMUAN APIP
+        // TINJUT TEMUAN BPK
+        'ket_hasil_temuan_bpk',
+        'tindak_lanjut_bpk',
+        'ket_tinjut_bpk',
+        'status_sesuai_Form8',
+        // END TINJUT TEMUAN BPK
         // CHECK RP4
         'isRP4Penggunaan',
         'isRP4Pemanfaatan',
