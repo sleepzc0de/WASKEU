@@ -473,6 +473,40 @@ class FormPenggunaanSementaraController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $datas = [
+                'isDeletedForm5' => true,
+            ];
+
+            $user = Auth::user();
+            $KPB = $user->hasRole('KPB');
+            $KANWIL = $user->hasRole('PPB-W');
+            $ES1 = $user->hasRole('PPB-E1');
+            $PENGGUNA = $user->hasRole('PB');
+            $PENGELOLA = $user->hasRole('PENGELOLA');
+            $AUDITOR = $user->hasRole('AUDITOR');
+
+
+            if ($KPB) {
+                $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('bentuk_rp4_penggunaan', 'LIKE','%sementara%')->where('isRP4Penggunaan',true)->where('role', 'KPB')->findOrFail($id);
+            } elseif ($KANWIL) {
+
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('bentuk_rp4_penggunaan', 'LIKE','%sementara%')->where('isRP4Penggunaan',true)->where('role', 'PPB-W')->findOrFail($id);
+            } elseif ($ES1) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,5) = ?', [Auth::user()->satker])->where('bentuk_rp4_penggunaan', 'LIKE','%sementara%')->where('isRP4Penggunaan',true)->where('role', 'PPB-E1')->findOrFail($id);
+            } elseif ($PENGGUNA) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('bentuk_rp4_penggunaan', 'LIKE','%sementara%')->where('isRP4Penggunaan',true)->where('role', 'PB')->findOrFail($id);
+            } elseif ($PENGELOLA) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('bentuk_rp4_penggunaan', 'LIKE','%sementara%')->where('isRP4Penggunaan',true)->where('role', 'PENGELOLA')->findOrFail($id);
+            } elseif ($AUDITOR) {
+                $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('bentuk_rp4_penggunaan', 'LIKE','%sementara%')->where('isRP4Penggunaan',true)->where('role', 'AUDITOR')->findOrFail($id);
+            }
+
+            // PenggunaanModel::findOrFail($id)->update($data);
+            // PenggunaanModel::findOrFail($id)->delete($data);
+            return redirect()->route('penggunaan-sementara.index')->with('success', "Data berhasil dihapus!");
+        } catch (Exception $e) {
+            return redirect()->route('penggunaan-sementara.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
+        }
     }
 }

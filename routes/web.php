@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\wasdal\HomeController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormBMNTidakDigunakanController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormKesesuaianPSPController;
+use App\Http\Controllers\wasdal\pemantauan\form\FormPenggunaanDioperasikanPihakLainController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormPenggunaanSementaraController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormPSPController;
 use App\Http\Controllers\wasdal\pemantauan\form\FormTingkatKesesuaianSBSKController;
@@ -55,6 +56,7 @@ Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('devel
      Route::resource('form-bmn-tidak-digunakan', FormBMNTidakDigunakanController::class );
      Route::resource('form-tingkat-kesesuaian-sbsk', FormTingkatKesesuaianSBSKController::class );
      Route::resource('form-penggunaan-sementara', FormPenggunaanSementaraController::class );
+     Route::resource('form-operasi-pihak-lain', FormPenggunaanDioperasikanPihakLainController::class );
 
      // REFERENSI PEMANTAUAN PENGGUNAAN
 
