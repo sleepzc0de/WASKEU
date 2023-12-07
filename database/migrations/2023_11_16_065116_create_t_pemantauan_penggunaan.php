@@ -51,8 +51,15 @@ return new class extends Migration
             $table->text('ket_persetujuan')->nullable()->default('KOSONG');
             $table->string('status_pelaksanaan')->nullable()->default('KOSONG');
             $table->text('ket_pelaksanaan')->nullable()->default('KOSONG');
-            $table->text('bentuk_rp4')->nullable()->default('KOSONG');
+            $table->text('bentuk_rp4_penggunaan')->nullable()->default('KOSONG');
+            $table->text('bentuk_rp4_pemanfaatan')->nullable()->default('KOSONG');
+            $table->text('bentuk_rp4_pemindahtanganan')->nullable()->default('KOSONG');
+            $table->text('bentuk_rp4_penghapusan')->nullable()->default('KOSONG');
             $table->string('status_sesuai_Form5')->nullable()->default('KOSONG');
+            $table->boolean('isRP4Penggunaan')->nullable()->default(false);
+            $table->boolean('isRP4Pemanfaatan')->nullable()->default(false);
+            $table->boolean('isRP4Pemindahtanganan')->nullable()->default(false);
+            $table->boolean('isRP4Penghapusan')->nullable()->default(false);
             $table->boolean('isCompletedForm1')->nullable()->default(false);
             $table->boolean('isCompletedForm2')->nullable()->default(false);
             $table->boolean('isCompletedForm3')->nullable()->default(false);

@@ -107,7 +107,8 @@ $(function () {
                   { data: "ket_persetujuan", name: "ket_persetujuan" },
                   { data: "status_pelaksanaan", name: "status_pelaksanaan" },
                   { data: "ket_pelaksanaan", name: "ket_pelaksanaan" },
-                  { data: "bentuk_rp4", name: "bentuk_rp4" },
+                  { data: "bentuk_rp4_penggunaan", name: "bentuk_rp4_penggunaan" },
+                  { data: "status_sesuai_Form5", name: "status_sesuai_Form5" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -270,9 +271,9 @@ $(function () {
     <div class="card-datatable table-responsive pt-0">
         <div class="pt-3 px-5">
              @include('layouts.wasdal.session_notif')
-            {{-- <a href="{{ route('form-kesesuaian-psp.create') }}" class="btn btn-label-primary btn-fab demo">
+            <a href="{{ route('form-penggunaan-sementara.create') }}" class="btn btn-label-primary btn-fab demo">
                 <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Tambah Data
-            </a> --}}
+            </a>
 
         </div>
 
@@ -299,6 +300,7 @@ $(function () {
                     <th>STATUS PELAKSANAAN</th>
                     <th>KETERANGAN PELAKSANAAN</th>
                     <th>BENTUK RP4</th>
+                    <th>STATUS SESUAI</th>
                     <th>AKSI</th>
                 </tr>
             </thead>

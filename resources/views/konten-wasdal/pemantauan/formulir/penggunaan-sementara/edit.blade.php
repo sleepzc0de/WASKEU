@@ -78,7 +78,7 @@
                 {{$data->kode_barang}} | Nup : {{$data->nup}}</h5><br>
         </div>
         <div class="card-body">
-            <form action="{{route('form-kesesuaian-psp.update',$data->id)}}" method="post" enctype="multipart/form-data"
+            <form action="{{route('form-penggunaan-sementara.update',$data->id)}}" method="post" enctype="multipart/form-data"
                 autocomplete="off">
                 @csrf
                 @method('PUT')
@@ -92,11 +92,11 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="dok_rp4">Dokumen RP4</label>
                     <div class="col-sm-10">
-                        <select name="dok_rp4" class="form-select"
+                        <select data-allow-clear="true" name="dok_rp4" class="select2 form-select form-select-lg"
                             id="dok_rp4" aria-label="Dokumen RP4">
                             <option selected disabled>Pilih Dokumen RP4</option>
                             @foreach ($dok_rp4 as $item)
-                            <option value="{{ $item->dok_rp4 }}" {{ old('dok_rp4',$data->dok_rp4) == $item->id
+                            <option value="{{ $item->dok_rp4 }}" {{ old('dok_rp4',$data->dok_rp4) == $item->dok_rp4
                                 ?
                                 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_dok_rp4}}</option>
                             @endforeach
@@ -107,11 +107,11 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="status_persetujuan">Status Persetujuan</label>
                     <div class="col-sm-10">
-                        <select name="status_persetujuan" class="form-select"
+                        <select data-allow-clear="true" name="status_persetujuan" class="select2 form-select form-select-lg"
                             id="status_persetujuan" aria-label="Status Persetujuan">
                             <option selected disabled>Pilih Status Persetujuan</option>
                             @foreach ($status_persetujuan as $item)
-                            <option value="{{ $item->status_persetujuan }}" {{ old('status_persetujuan',$data->status_persetujuan) == $item->id
+                            <option value="{{ $item->status_persetujuan }}" {{ old('status_persetujuan',$data->status_persetujuan) == $item->status_persetujuan
                                 ?
                                 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_status_persetujuan}}</option>
                             @endforeach
@@ -122,11 +122,11 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="bentuk_persetujuan">Bentuk Persetujuan</label>
                     <div class="col-sm-10">
-                        <select name="bentuk_persetujuan" class="form-select"
+                        <select data-allow-clear="true" name="bentuk_persetujuan" class="select2 form-select form-select-lg"
                             id="bentuk_persetujuan" aria-label="Bentuk Persetujuan">
                             <option selected disabled>Pilih Bentuk Persetujuan</option>
                             @foreach ($bentuk_persetujuan as $item)
-                            <option value="{{ $item->bentuk_persetujuan }}" {{ old('bentuk_persetujuan',$data->bentuk_persetujuan) == $item->id
+                            <option value="{{ $item->bentuk_persetujuan }}" {{ old('bentuk_persetujuan',$data->bentuk_persetujuan) == $item->bentuk_persetujuan
                                 ?
                                 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_bentuk_persetujuan}}</option>
                             @endforeach
@@ -148,11 +148,11 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="status_pelaksanaan">Status Pelaksanaan</label>
                     <div class="col-sm-10">
-                        <select name="status_pelaksanaan" class="form-select"
+                        <select data-allow-clear="true" name="status_pelaksanaan" class="select2 form-select form-select-lg"
                             id="status_pelaksanaan" aria-label="Status Pelaksanaan">
                             <option selected disabled>Pilih Status Pelaksanaan</option>
                             @foreach ($status_pelaksanaan as $item)
-                            <option value="{{ $item->status_pelaksanaan }}" {{ old('status_pelaksanaan',$data->status_pelaksanaan) == $item->id
+                            <option value="{{ $item->status_pelaksanaan }}" {{ old('status_pelaksanaan',$data->status_pelaksanaan) == $item->status_pelaksanaan
                                 ?
                                 'selected' : ''}}>{{$loop->iteration." - ".$item->ur_status_pelaksanaan}}</option>
                             @endforeach

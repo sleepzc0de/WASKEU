@@ -53,9 +53,18 @@ class PenggunaanModel extends Model
         'ket_persetujuan',
         'status_pelaksanaan',
         'ket_pelaksanaan',
-        'bentuk_rp4',
+        'bentuk_rp4_penggunaan',
+        'bentuk_rp4_pemanfaatan',
+        'bentuk_rp4_pemindahtanganan',
+        'bentuk_rp4_penghapusan',
         'status_sesuai_Form5',
         // END PENGGUNAAN SEMENTARA
+        // CHECK RP4
+        'isRP4Penggunaan',
+        'isRP4Pemanfaatan',
+        'isRP4Pemindahtanganan',
+        'isRP4Penghapusan',
+        // END CHECK RP4
         'isCompletedForm1', 'isCompletedForm2', 'isCompletedForm3', 'isCompletedForm4', 'isCompletedForm5', 'isCompletedForm6', 'isCompletedForm7', 'isCompletedForm8',
         'isDeletedForm1', 'isDeletedForm2', 'isDeletedForm3', 'isDeletedForm4', 'isDeletedForm5', 'isDeletedForm6', 'isDeletedForm7', 'isDeletedForm8'
     ];

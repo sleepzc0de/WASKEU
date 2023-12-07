@@ -9,5 +9,7 @@ class Simanv2Model extends Model
 {
     use HasFactory;
      protected $table = 'SIMAN_V2_ALL';
+     protected $primaryKey = 'unik'; // Ganti 'nama_primary_key' dengan nama primary key tabel Anda
+
 
 }

@@ -17,6 +17,7 @@ class PenggunaanController extends Controller
     public function index()
     {
 
+
         // dd(Hash::make('W4sd4lK3u!@#!@#!@#1Nd0n35!A'));
         // $dataToInsert = DB::table('SIMAN_V2_ALL AS a')->leftJoin('rp4_penggunaan  AS b','a.unik','=','b.rp4_uniq')->leftJoin('rp4_pemanfaatan AS c','b.rp4_uniq','=','c.rp4_uniq')->leftJoin('rp4_pemindahtanganan AS d','c.rp4_uniq','=','d.rp4_uniq')->whereRaw('LEFT(a.kd_satker,3)=015')->where('c.rp4_uniq','015010400117109000KD40101010012')->take(1)->first();
         // dd($dataToInsert->a.ur_eselon1);

@@ -77,7 +77,6 @@
                                     </div>
                                     <div class="flex-grow-1">
                                         @auth
-
                                         <span class="fw-medium d-block">{{ Auth::user()->nama_pegawai }}</span>
                                         <span class="fw-small d-block">{{ Auth::user()->kode_satker }} -
                                             {{ Auth::user()->satker }}</span>
@@ -96,10 +95,11 @@
                                                 <p>...</p>
                                             @endif
                                         </small>
+                                        @endauth
+                                        @guest()
                                         <span class="fw-medium d-block">Nama</span>
                                         <span class="fw-small d-block">Satker</span>
-
-                                        @endauth
+                                        @endguest
 
                                     </div>
                                 </div>

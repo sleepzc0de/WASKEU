@@ -103,6 +103,7 @@ $(function () {
                   { data: "kesesuaian_psp", name: "kesesuaian_psp" },
                   { data: "digunakan_sebagai", name: "digunakan_sebagai" },
                   { data: "rencana_alih_fungsi", name: "rencana_alih_fungsi" },
+                  { data: "status_sesuai_Form2", name: "status_sesuai_Form2" },
                 {
                     data: "opsi",
                     name: "opsi",
@@ -289,6 +290,7 @@ $(function () {
                     <th>KESESUAIAN PSP</th>
                     <th>DIGUNAKAN SEBAGAI</th>
                     <th>RENCANA ALIH FUNGSI</th>
+                    <th>STATUS SESUAI</th>
                     <th>AKSI</th>
                 </tr>
             </thead>

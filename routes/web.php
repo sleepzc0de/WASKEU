@@ -73,3 +73,4 @@ Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('devel
 
 
 require __DIR__.'/auth.php';
+
