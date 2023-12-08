@@ -27,9 +27,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return view('layouts.wasdal.master');
-});
+// Route::get('/', function () {
+//     return view('layouts.wasdal.master');
+// });
 
 
 Route::get('/dashboard', function () {
@@ -47,12 +47,22 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('developer.wasdal');
 
+// FIX ROUTE //
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('developer.wasdal');
+
+// REDIRECT
+Route::redirect('/login', '/');
+
+
 
 //  Route::resource('pemantauan-periodik-pemanfaatan', PemantauanPemanfaatanPeriodikController::class);
 
 //  PEMANTAUAN PENGGUNAAN
- Route::prefix('pemantauan-penggunaan')->middleware('auth')->group(function () {
-     Route::resource('pemantauan-penggunaan', PenggunaanController::class);
+ Route::prefix('/pemantauan')->middleware('auth')->group(function () {
+    Route::group(['prefix' => '/penggunaan', 'middleware' => ['auth']], function () {
+
+     Route::resource('home-penggunaan', PenggunaanController::class);
      Route::resource('form-psp', FormPSPController::class);
      Route::resource('form-kesesuaian-psp', FormKesesuaianPSPController::class);
      Route::resource('form-bmn-tidak-digunakan', FormBMNTidakDigunakanController::class );
@@ -61,6 +71,11 @@ Route::get('/tim-pengembang', [HomeController::class, 'developer'])->name('devel
      Route::resource('form-operasi-pihak-lain', FormPenggunaanDioperasikanPihakLainController::class );
      Route::resource('form-tindak-lanjut-apip', FormTindakLanjutTemuanPenggunaanBMNApipController::class );
      Route::resource('form-tindak-lanjut-bpk', FormTindakLanjutTemuanPenggunaanBMNBpkController::class );
+
+
+    });
+
+
 
      // REFERENSI PEMANTAUAN PENGGUNAAN
 

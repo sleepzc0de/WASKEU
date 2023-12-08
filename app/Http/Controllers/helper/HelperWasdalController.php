@@ -58,6 +58,10 @@ class HelperWasdalController extends Controller
                 $dataToInsert = DB::table('SIMAN_V2_ALL AS a')->leftJoin('rp4_penggunaan AS b', 'a.unik', '=', 'b.rp4_penggunaan_uniq')->leftJoin('rp4_pemanfaatan AS c', 'b.rp4_penggunaan_uniq', '=', 'c.rp4_pemanfaatan_uniq')->leftJoin('rp4_pemindahtanganan AS d', 'c.rp4_pemanfaatan_uniq', '=', 'd.rp4_pemindahtanganan_uniq')->leftJoin('rp4_penghapusan AS e', 'd.rp4_pemindahtanganan_uniq', '=', 'e.rp4_penghapusan_uniq')->where('kd_satker_6digit', Auth::user()->satker)->get();
                 foreach ($dataToInsert as $data) {
 
+                    $identifier = [
+                        'unik' => $data->unik
+                    ];
+
                     // Logika untuk isRP4Penggunaan dan isRPPenghapusan
                     $isRP4Penggunaan = !empty($data->rp4_penggunaan_uniq) ? true : false;
                     $isRP4Pemanfaatan = !empty($data->rp4_pemanfaatan_uniq) ? true : false;
@@ -66,6 +70,7 @@ class HelperWasdalController extends Controller
 
 
                     $newData = [
+                        'isGenerated' => true,
                         'tahun' => session('tahun_wasdal'),
                         'periode' => session('periode_wasdal'),
                         'jenis_pemantauan' => session('jenis_pemantauan_wasdal'),
@@ -96,9 +101,18 @@ class HelperWasdalController extends Controller
 
                     ];
 
-                    PenggunaanModel::create($newData);
+                    // Periksa apakah data sudah di-generate sebelumnya
+                    $existingData = PenggunaanModel::where($identifier)->first();
+                    if (!$existingData || !$existingData->isGenerated) {
+                        // Jika data belum di-generate atau belum ada, lakukan operasi create/update
+                        PenggunaanModel::updateOrCreate($identifier, $newData);
+                        $allDataGenerated = false;
+                    }
+
+                    // PenggunaanModel::create($newData);
                 }
             } elseif ($KANWIL) {
+
                 $dataToInsert = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->get();
 
                 foreach ($dataToInsert as $data) {
@@ -356,9 +370,9 @@ class HelperWasdalController extends Controller
             }
 
 
-            return redirect()->back()->with('success', 'Data berhasil digenerate');
+            return redirect()->route('home-penggunaan.index')->with('success', 'Data berhasil digenerate');
         } catch (QueryException $e) {
-            return redirect()->back()->with('error', 'Gagal melakukan proses generate: ' . $e->getMessage());
+            return redirect()->route('home-penggunaan.index')->with('failed', 'Gagal melakukan proses generate: ' . $e->getMessage());
         }
     }
 

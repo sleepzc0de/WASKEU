@@ -443,6 +443,54 @@ class FormTindakLanjutTemuanPenggunaanBMNApipController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        {
+            try {
+                $datas = [
+                    'isDeletedForm7' => true,
+                ];
+
+                $user = Auth::user();
+                $KPB = $user->hasRole('KPB');
+                $KANWIL = $user->hasRole('PPB-W');
+                $ES1 = $user->hasRole('PPB-E1');
+                $PENGGUNA = $user->hasRole('PB');
+                $PENGELOLA = $user->hasRole('PENGELOLA');
+                $AUDITOR = $user->hasRole('AUDITOR');
+
+
+                if ($KPB) {
+                    $data = PenggunaanModel::where('kode_satker', Auth::user()->satker)->where('role', 'KPB')->findOrFail($id);
+                    $data->update($datas);
+                    $data->delete($datas);
+                } elseif ($KANWIL) {
+
+                    $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,9) = ?', [Auth::user()->satker])->where('role', 'PPB-W')->findOrFail($id);
+                    $data->update($datas);
+                    $data->delete($datas);
+                } elseif ($ES1) {
+                    $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PPB-E1')->findOrFail($id);
+                    $data->update($datas);
+                    $data->delete($datas);
+                } elseif ($PENGGUNA) {
+                    $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PB')->findOrFail($id);
+                    $data->update($datas);
+                    $data->delete($datas);
+                } elseif ($PENGELOLA) {
+                    $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'PENGELOLA')->findOrFail($id);
+                    $data->update($datas);
+                    $data->delete($datas);
+                } elseif ($AUDITOR) {
+                    $data = PenggunaanModel::whereRaw('LEFT(kode_anak_satker,3) = ?', [Auth::user()->satker])->where('role', 'AUDITOR')->findOrFail($id);
+                    $data->update($datas);
+                    $data->delete($datas);
+                }
+
+                // PenggunaanModel::findOrFail($id)->update($data);
+                // PenggunaanModel::findOrFail($id)->delete($data);
+                return redirect()->route('form-tindak-lanjut-apip.index')->with('success', "Data berhasil dihapus!");
+            } catch (Exception $e) {
+                return redirect()->route('form-tindak-lanjut-apip.index')->with(['failed' => 'Data Yang Dihapus Tidak Ada ! error :' . $e->getMessage()]);
+            }
+        }
     }
 }

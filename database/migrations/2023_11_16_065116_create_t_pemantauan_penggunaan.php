@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('t_pemantauan_penggunaan', function (Blueprint $table) {
             $table->id();
+            $table->string('unik')->nullable()->default('KOSONG');
+            $table->boolean('isGenerated')->nullable()->default(false);
             $table->string('tahun')->nullable()->default('KOSONG');
             $table->string('periode')->nullable()->default('KOSONG');
             $table->string('jenis_pemantauan')->nullable()->default('KOSONG');

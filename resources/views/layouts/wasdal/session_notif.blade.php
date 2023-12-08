@@ -11,6 +11,19 @@
 </div>
 @endif
 
+@if($message = Session::get('warning'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <h4 class="alert-heading d-flex align-items-center">
+        <i class="mdi mdi-alert-circle-outline mdi-24px me-2"></i>Error!!
+    </h4>
+    <hr />
+    <p>
+        {{$message}}
+    </p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 @if($message = Session::get('failed'))
 <div class="alert alert-danger alert-dismissible" role="alert">
     <h4 class="alert-heading d-flex align-items-center">

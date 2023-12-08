@@ -14,6 +14,8 @@ class PenggunaanModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = 't_pemantauan_penggunaan';
     protected $fillable = [
+        'unik',
+        'isGenerated',
         'tahun',
         'periode',
         'jenis_pemantauan',

@@ -84,7 +84,7 @@ class PenggunaanController extends Controller
 
 
 
-        return view('konten-wasdal.pemantauan.periodik.penggunaan.index', compact('data'));
+        return view('konten-wasdal.pemantauan.penggunaan.index', compact('data'));
     }
 
     // public function destroy(string $id)

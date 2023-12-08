@@ -12,31 +12,7 @@
                       <li class="menu-item">
                         <a href="app-ecommerce-dashboard.html" class="menu-link">
                           <i class="menu-icon tf-icons mdi mdi-cart-outline"></i>
-                          <div data-i18n="eCommerce">eCommerce</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="dashboards-crm.html" class="menu-link">
-                          <i class="menu-icon tf-icons mdi mdi-chart-donut"></i>
-                          <div data-i18n="CRM">CRM</div>
-                        </a>
-                      </li>
-                      <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
-                          <i class="menu-icon tf-icons mdi mdi-chart-timeline-variant"></i>
-                          <div data-i18n="Analytics">Analytics</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-logistics-dashboard.html" class="menu-link">
-                          <i class="menu-icon tf-icons mdi mdi-truck-outline"></i>
-                          <div data-i18n="Logistics">Logistics</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-academy-dashboard.html" class="menu-link">
-                          <i class="menu-icon tf-icons mdi mdi-notebook-outline"></i>
-                          <div data-i18n="Academy">Academy</div>
+                          <div data-i18n="Dashboard">Dashboard</div>
                         </a>
                       </li>
                     </ul>
@@ -56,7 +32,7 @@
                                 </a>
                               </li> --}}
                               <li class="menu-item">
-                                <a href="{{route('pemantauan-penggunaan.index')}}" class="menu-link">
+                                <a href="{{route('home-penggunaan.index')}}" class="menu-link">
                                   <i class="menu-icon tf-icons mdi mdi-circle-medium mdi-20px"></i>
                                   <div data-i18n="Penggunaan">Penggunaan</div>
                                 </a>

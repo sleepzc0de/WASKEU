@@ -9,6 +9,9 @@ use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
+    public function index(){
+        return view ('konten-wasdal.home.index');
+    }
     public function developer(){
         return view('konten-wasdal.home.developer');
     }

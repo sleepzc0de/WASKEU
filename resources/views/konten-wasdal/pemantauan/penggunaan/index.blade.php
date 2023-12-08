@@ -49,7 +49,7 @@
                         processing: '<i class="fa fa-spinner fa-spin"></i> Loading...'
                     },
                     serverSide: true,
-                    ajax: "{{ route('pemantauan-penggunaan.index') }}",
+                    ajax: "{{ route('home-penggunaan.index') }}",
                     autoWidth: true,
                     scrollY: 200,
                     scrollX: true,
@@ -325,6 +325,7 @@
                         <!-- FormStyle -->
                         {{-- <div class="card"> --}}
                         <h5 class="card-header">Wasdal Pemantauan Periodik Penggunaan</h5>
+                        @include('layouts.wasdal.session_notif')
                         {{-- <div class="card-body"> --}}
                         <div class="row">
                             <div class="col-12 col-lg-12 mb-4 mb-xl-0 center">
@@ -339,11 +340,11 @@
                                                     <div class="user-info">
                                                         <h6 class="mb-1">PSP</h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -362,11 +363,11 @@
                                                     <div class="user-info">
                                                         <h6 class="mb-1">Kesesuaian PSP</h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -385,11 +386,11 @@
                                                     <div class="user-info">
                                                         <h6 class="mb-1">BMN Tidak Digunakan</h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -408,11 +409,11 @@
                                                     <div class="user-info">
                                                         <h6 class="mb-1">Tingkat Kesesuaian SBSK</h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -431,11 +432,11 @@
                                                     <div class="user-info">
                                                         <h6 class="mb-1">Penggunaan Sementara</h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -456,11 +457,11 @@
                                                         <h6 class="mb-1">Penggunaan Dioperasikan Oleh Pihak Lain
                                                         </h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -480,11 +481,11 @@
                                                         <h6 class="mb-1">TL Hasil Temuan Penggunaan BMN oleh APIP
                                                         </h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-success mdi mdi mdi-check-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
@@ -504,11 +505,11 @@
                                                         <h6 class="mb-1">TL Hasil Temuan Penggunaan BMN oleh BPK
                                                         </h6>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="user-status me-2 d-flex align-items-center">
+                                                            {{-- <div class="user-status me-2 d-flex align-items-center">
                                                                 <small>Status Form</small>
                                                                 <span
                                                                     class="ms-2 text-danger mdi mdi mdi-alert-decagram"></span>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="add-btn">
